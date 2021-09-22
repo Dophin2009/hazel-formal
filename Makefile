@@ -1,8 +1,10 @@
 LATEXMK ?= latexmk
 
+PRELUDE = prelude.tex symbols.tex
+
 .PHONY : clean
 
-%.pdf :
+%.pdf : %.tex $(PRELUDE)
 	$(LATEXMK) $*.tex
 	mv target/$*.pdf $*.pdf
 
