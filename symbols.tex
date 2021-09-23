@@ -55,8 +55,8 @@
 
 \newcommand{\ZCursor}[1]{\mathcolorbox{highlight}{\textcolor{darkgreen}{\bm{\triangleright}}#1\textcolor{darkgreen}{\bm{\triangleleft}}}}
 \newcommand{\ZCursorHole}{\ZCursor{\ZHoleS}}
-\newcommand{\ZHole}[1]{\textcolor{lavender}{\bm{(\mid}}#1\textcolor{lavender}{\bm{\mid)}}}
-\newcommand{\ZHoleS}{\textcolor{lavender}{\bm{(\mid\mid)}}}
+\newcommand{\ZHole}[1]{\textcolor{lavender}{\bm{\llparenthesis}}#1\textcolor{lavender}{\bm{\rrparenthesis}}}
+\newcommand{\ZHoleS}{\ZHole{}}
 
 \newcommand{\ZEStrSubC}[3]{\ZCursor{\HEStrSubC{#1}{#2}{#3}}}
 \newcommand{\ZEStrSubCI}[3]{\HEStrSubC{\ZCursor{#1}}{#2}{#3}}
