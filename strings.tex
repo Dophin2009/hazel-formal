@@ -64,6 +64,7 @@
 \end{mathpar}
 
 \subsubsection{Synthetic and Analytic Expression Actions}
+\judgbox{\AAArrow{\synType{\Gammad}{\ehat}{\taud}}{\synTypeC{\ehatp}{\taudp}}}
 
 \subsubsubsection{Construction}
 %
@@ -71,11 +72,47 @@
   \judgment{
   }{
     \ACStrLit{
-      \synType{\Gammad}{\ZCursorHole}{\ZHole}
+      \synType{\Gammad}{\ZCursorHole}{\ZHoleS}
     }{
       \synTypeC{\ZCursor{\HEStrLitC}}{\HTStrC}
     }
-  }{SAConStrLit}
+  }{SAConStrLit} \\
+
+  \judgment{
+    \isConsistent{\taud}{\HTStrC}
+  }{
+    \ACStrSub{
+      \synType{\Gammad}{\ZCursor{\edot}}{\taud}
+    }{
+      \synTypeC{\ZEStrSubCII{\edot}{\ZHoleS}{\ZHoleS}}{\HTStrC}
+    }
+  }{SAConStrSub1} \\
+
+  \judgment{
+    \isNotConsistent{\taud}{\HTStrC}
+  }{
+    \ACStrSub{
+      \synType{\Gammad}{\ZCursor{\edot}}{\taud}
+    }{
+      \synTypeC{\ZEStrSubCII{\ZHole{\edot}}{\ZHoleS}{\ZHoleS}}{\HTStrC}
+    }
+  }{SAConStrSub2}
+\end{mathpar}
+
+\judgbox{\AAArrow{\contextExpr{\Gammad}{\ehat}}{\anaTypeC{\ehatp}{\taud}}}
+
+\subsubsubsection{Construction}
+%
+\begin{mathpar}
+  \judgment{
+    \isNotConsistent{\taud}{\HTStrC}
+  }{
+    \ACStrLit{
+      \contextExpr{\Gammad}{\ZCursorHole}
+    }{
+      \anaTypeC{\ZHole{\ZCursor{\HEStrLitC}}}{\taud}
+    }
+  }{AAConStrLit} \\
 \end{mathpar}
 
 \end{document}
