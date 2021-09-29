@@ -30,8 +30,6 @@
 \newtheorem*{induction}{Induction}
 \newtheorem*{fact}{Fact}
 
-\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
-
 \newcommand{\rulen}[1]{~~\text{(#1)}}
 \newcommand{\judgment}[3]{\inferrule{#1}{#2}\rulen{\textsc{#3}}}
 \newcommand{\judgbox}[1]{\noindent \fbox{$#1$}}
@@ -41,15 +39,15 @@
 \newcommand{\HTypCtx}{\dot{\Gamma}}
 \newcommand{\HTypVar}{\dot{\tau}}
 \newcommand{\HTypVarP}{\HTypVar'}
-\newcommand{\HTypNumC}{\texttt{num}}
-\newcommand{\HTypStrC}{\texttt{str}}
-\newcommand{\HTypArrowC}[2]{(#1 \to #2)}
+\newcommand{\HTypNum}{\texttt{num}}
+\newcommand{\HTypStr}{\texttt{str}}
+\newcommand{\HTypArrow}[2]{(#1 \to #2)}
 
 % H-expressions
 \newcommand{\HExp}{\texttt{HExp}}
 \newcommand{\HExpVar}{\dot{e}}
 \newcommand{\HExpVarP}{\dot{e}'}
-\newcommand{\HExpStrLit}{\texttt{"}\ubar{s}\texttt{"}}
+\newcommand{\HExpStrLit}{\texttt{"}\underline{s}\texttt{"}}
 \newcommand{\HExpStrSub}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
 
 % Z-types
@@ -71,8 +69,16 @@
 % IH-expressions
 \newcommand{\IHExp}{\texttt{IHExp}}
 \newcommand{\IHExpVar}{d}
+\newcommand{\IHExpVarP}{\IHExpVar'}
 \newcommand{\IHExpCtx}[2]{#1 \dashv #2}
-\newcommand{\IHExpStrLit}{\texttt{"}\ubar{s}\texttt{"}}
+\newcommand{\IHExpNumLit}{\underline{n}}
+\newcommand{\IHExpNumLitS}[1]{\underline{n_#1}}
+\newcommand{\IHExpNumLitV}{n}
+\newcommand{\IHExpNumLitVS}[1]{n_#1}
+\newcommand{\IHExpStrLit}{\texttt{"}\underline{s}\texttt{"}}
+\newcommand{\IHExpStrLitS}[1]{\texttt{"}\underline{s_#1}\texttt{"}}
+\newcommand{\IHExpStrLitV}[1]{\texttt{"}s\texttt{"}}
+\newcommand{\IHExpStrLitVS}[1]{\texttt{"}s_#1\texttt{"}}
 \newcommand{\IHExpStrSub}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
 
 % IH hole context
@@ -90,11 +96,16 @@
 % Elaboration expressions
 \newcommand{\ElabArrow}[2]{#1 \rightsquigarrow #2}
 
+% Evaluation expressions
+\newcommand{\EvalCtx}{\mathcal{E}}
+\newcommand{\EvalCtxEx}[2]{#1 = \EvalCtx\{#2\}}
+\newcommand{\EvalCtxExF}[3]{#1 = #2\{#3\}}
+\newcommand{\EvalTran}[2]{#1 \longrightarrow #2}
+
+% Type rule expressions
+\newcommand{\contextExpr}[2]{\ensuremath{#1 \vdash #2}}
 \newcommand{\isConsistent}[2]{\ensuremath{#1 \sim #2}}
 \newcommand{\isNotConsistent}[2]{\ensuremath{#1 \nsim #2}}
-
-% Rule expressions
-\newcommand{\contextExpr}[2]{\ensuremath{#1 \vdash #2}}
 \newcommand{\hasType}[3]{\ensuremath{#1 \vdash #2 : #3}}
 \newcommand{\hasTypeC}[2]{\ensuremath{#1 : #2}}
 \newcommand{\hasTypeD}[4]{\ensuremath{#1; #2 \vdash #3 : #4}}
@@ -108,4 +119,9 @@
 \newcommand{\anaTypeD}[4]{\ensuremath{#1; #2 \vdash #3 \Leftarrow #4}}
 \newcommand{\anaTypeDX}[3]{\ensuremath{\anaTypeD{\Delta}{#1}{#2}{#3}}}
 
-\newcommand{\isValue}[1]{#1~\mathsf{val}}
+\newcommand{\isGround}[1]{#1~\mathsf{ground}}
+\newcommand{\isFinal}[1]{#1~\mathsf{final}}
+\newcommand{\isVal}[1]{#1~\mathsf{val}}
+\newcommand{\isIndet}[1]{#1~\mathsf{indet}}
+
+\newcommand{\optPremise}[1]{\textcolor{red}{\bm{[}}#1\textcolor{red}{\bm{]}}}

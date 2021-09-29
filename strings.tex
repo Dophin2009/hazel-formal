@@ -13,7 +13,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \begin{center}
   \vspace*{-1.5em}
   \[\begin{array}{rccl}
-    \HTyp  & \HTypVar  & \Coloneqq & \cdots \mid \HTypStrC                                                  \\
+    \HTyp  & \HTypVar  & \Coloneqq & \cdots \mid \HTypStr                                                  \\
     \HExp  & \HExpVar  & \Coloneqq & \cdots \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
     \IHExp & \IHExpVar & \Coloneqq & \cdots \mid \IHExpStrLit \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
   \end{array}\]
@@ -25,22 +25,22 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \judgbox{\isNotConsistent{\HTypVar}{\HTypVarP}}
 %
 \begin{mathpar}
-  \judgment{ }{\isNotConsistent{\HTypStrC}{\HTypArrowC{\HTypVar_1}{\HTypVar_2}}}{HTICStrArr1} \\
-  \judgment{ }{\isNotConsistent{\HTypArrowC{\HTypVar_1}{\HTypVar_2}}{\HTypStrC}}{HTICStrArr2}
+  \judgment{ }{\isNotConsistent{\HTypStr}{\HTypArrow{\HTypVar_1}{\HTypVar_2}}}{HTICStrArr1} \\
+  \judgment{ }{\isNotConsistent{\HTypArrow{\HTypVar_1}{\HTypVar_2}}{\HTypStr}}{HTICStrArr2}
 \end{mathpar}
 
 \subsubsection{Synthesis and Analysis}
 \judgbox{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}
 %
 \begin{mathpar}
-  \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStrC}}{HTypSStrLit} \\
+  \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStr}}{HTypSStrLit} \\
 
   \judgment{
-    \anaType{\HTypCtx}{\HExpVar_1}{\HTypStrC} \\
-    \anaType{\HTypCtx}{\HExpVar_2}{\HTypNumC} \\
-    \anaType{\HTypCtx}{\HExpVar_3}{\HTypNumC}
+    \anaType{\HTypCtx}{\HExpVar_1}{\HTypStr} \\
+    \anaType{\HTypCtx}{\HExpVar_2}{\HTypNum} \\
+    \anaType{\HTypCtx}{\HExpVar_3}{\HTypNum}
   }{
-    \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStrC}
+    \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStr}
   }{HTSStrSub}
 \end{mathpar}
 
@@ -87,27 +87,27 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \AcConStrLit{
       \synType{\HTypCtx}{\ZExpCursorEHole}{\ZExpEHole}
     }{
-      \synTypeC{\ZExpCursor{\HExpStrLit}}{\HTypStrC}
+      \synTypeC{\ZExpCursor{\HExpStrLit}}{\HTypStr}
     }
   }{ASConStrLit} \\
 
   \judgment{
-    \isConsistent{\HTypVar}{\HTypStrC}
+    \isConsistent{\HTypVar}{\HTypStr}
   }{
     \AcConStrSub{
       \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
     }{
-      \synTypeC{\ZExpStrSubII{\HExpVar}{\ZExpEHole}{\ZExpEHole}}{\HTypStrC}
+      \synTypeC{\ZExpStrSubII{\HExpVar}{\ZExpEHole}{\ZExpEHole}}{\HTypStr}
     }
   }{ASConStrSub1} \\
 
   \judgment{
-    \isNotConsistent{\HTypVar}{\HTypStrC}
+    \isNotConsistent{\HTypVar}{\HTypStr}
   }{
     \AcConStrSub{
       \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
     }{
-      \synTypeC{\ZExpStrSubII{\ZExpNEHole{\HExpVar}}{\ZExpEHole}{\ZExpEHole}}{\HTypStrC}
+      \synTypeC{\ZExpStrSubII{\ZExpNEHole{\HExpVar}}{\ZExpEHole}{\ZExpEHole}}{\HTypStr}
     }
   }{ASConStrSub2}
 \end{mathpar}
@@ -118,7 +118,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 %
 \begin{mathpar}
   \judgment{
-    \isNotConsistent{\HTypVar}{\HTypStrC}
+    \isNotConsistent{\HTypVar}{\HTypStr}
   }{
     \AcConStrLit{
       \contextExpr{\HTypCtx}{\ZExpCursorEHole}
@@ -128,7 +128,9 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
   }{AAConStrLit} \\
 \end{mathpar}
 
-\subsection{Elaboration}
+\subsection{Dynamic Semantics}
+
+\subsubsection{Elaboration}
 
 \judgbox{\ElabArrow{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}{\IHExpCtx{d}{\Delta}}}
         {~~$\HExpVar$ synthesizes type $\HTypVar$ and elaborates to $\IHExpVar$}
@@ -140,19 +142,17 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
   }{ELStrLit}
 
   \judgment{
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStrC}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypStrC}}{\IHExpHoleCtx_1}} \\
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNumC}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypNumC}}{\IHExpHoleCtx_2}} \\
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNumC}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypNumC}}{\IHExpHoleCtx_3}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypStr}}{\IHExpHoleCtx_1}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypNum}}{\IHExpHoleCtx_2}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypNum}}{\IHExpHoleCtx_3}} \\
   }{
     \ElabArrow{
-      \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStrC}
+      \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStr}
     }{
       \IHExpCtx{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\IHExpHoleCtx_1 \cup \IHExpHoleCtx_2 \cup \IHExpHoleCtx_3}
     }
   }{ELStrSub}
 \end{mathpar}
-
-\subsection{Dynamic Semantics}
 
 \subsubsection{IH-Expression Types}
 \judgbox{\hasType{\Delta; \HTypCtx}{d}{\HTypVar}}
@@ -161,16 +161,124 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \begin{mathpar}
   \judgment{
   }{
-    \hasType{\Delta; \HTypCtx}{\IHExpStrLit}{\HTypStrC}
+    \hasType{\Delta; \HTypCtx}{\IHExpStrLit}{\HTypStr}
   }{IHTStrLit}
 
   \judgment{
-    \hasType{\Delta; \HTypCtx}{\IHExpVar_1}{\HTypStrC} \\
-    \hasType{\Delta; \HTypCtx}{\IHExpVar_2}{\HTypNumC} \\
-    \hasType{\Delta; \HTypCtx}{\IHExpVar_3}{\HTypNumC} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_1}{\HTypStr} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_2}{\HTypNum} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_3}{\HTypNum} \\
   }{
-    \hasType{\Delta; \HTypCtx}{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\HTypStrC}
+    \hasType{\Delta; \HTypCtx}{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\HTypStr}
   }{IHTStrSub}
+\end{mathpar}
+
+\judgbox{\isGround{\HTypVar}}
+        {~~$\HTypVar$ is a ground type}
+
+\begin{mathpar}
+  \judgment{
+  }{
+    \isGround{\HTypStr}
+  }{IHTStrGround}
+\end{mathpar}
+
+\subsubsection{Values}
+\judgbox{\isVal{\IHExpVar}}
+        {~~$\IHExpVar$ is a value}
+
+\begin{mathpar}
+  \judgment{
+  }{
+    \isVal{\IHExpStrLit}
+  }{IHVVStrLit}
+\end{mathpar}
+
+\judgbox{\isIndet{\IHExpVar}}
+        {~~$\IHExpVar$ is indeterminate}
+
+\begin{mathpar}
+  \judgment{
+    \isIndet{\IHExpVar_1} \\
+    \isFinal{\IHExpVar_2} \\
+    \isFinal{\IHExpVar_3}
+  }{
+    \isIndet{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}
+  }{IHVIStrSub1} \\
+
+  \judgment{
+    \isFinal{\IHExpVar_1} \\
+    \isIndet{\IHExpVar_2} \\
+    \isFinal{\IHExpVar_3}
+  }{
+    \isIndet{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}
+  }{IHVIStrSub2} \\
+
+  \judgment{
+    \isFinal{\IHExpVar_1} \\
+    \isFinal{\IHExpVar_2} \\
+    \isIndet{\IHExpVar_3}
+  }{
+    \isIndet{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}
+  }{IHVIStrSub3}
+\end{mathpar}
+
+\subsubsection{Evaluation}
+
+\begin{center}
+  $\mathsf{EvalCtx}~\EvalCtx \Coloneqq \cdots \mid \IHExpStrSub{\EvalCtx}{\IHExpVar_2}{\IHExpVar_3}
+                               \mid \IHExpStrSub{\IHExpVar_1}{\EvalCtx}{\IHExpVar_3}
+                               \mid \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\EvalCtx}$
+\end{center}
+
+\judgbox{\EvalCtxEx{\IHExpVar}{\IHExpVarP}}
+        {~~$\IHExpVar$ is obtained by placing $\IHExpVarP$ at the mark in $\EvalCtx$}
+
+\begin{mathpar}
+  \judgment{
+    \EvalCtxEx{\IHExpVar_1}{\IHExpVarP_1}
+  }{
+    \EvalCtxExF{
+      \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}
+    }{
+      \IHExpStrSub{\EvalCtx}{\IHExpVar_2}{\IHExpVar_3}
+    }{\IHExpVarP_1}
+  }{EVRStrSub1} \\
+
+  \judgment{
+    \optPremise{\isFinal{\IHExpVar_1}} \\
+    \EvalCtxEx{\IHExpVar_2}{\IHExpVarP_2}
+  }{
+    \EvalCtxExF{
+      \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}
+    }{
+      \IHExpStrSub{\IHExpVar_1}{\EvalCtx}{\IHExpVar_3}
+    }{\IHExpVarP_2}
+  }{EVRStrSub2} \\
+
+
+  \judgment{
+    \optPremise{\isFinal{\IHExpVar_1}} \\
+    \optPremise{\isFinal{\IHExpVar_2}} \\
+    \EvalCtxEx{\IHExpVar_2}{\IHExpVarP_3}
+  }{
+    \EvalCtxExF{
+      \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}
+    }{
+      \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\EvalCtx}
+    }{\IHExpVarP_3}
+  }{EVRStrSub3} \\
+\end{mathpar}
+
+\judgbox{\EvalTran{\IHExpVar_1}{\IHExpVar_2}}
+        {~~$\IHExpVar_1$ transitions to $\IHExpVar_2$}
+
+\begin{mathpar}
+  \judgment{
+    \IHExpStrSub{\IHExpStrLitVS{1}}{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}} = \IHExpStrLitVS{4}
+  }{
+    \EvalTran{\IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}}{\IHExpStrLitS{4}}
+  }{EVTStrSub} 
 \end{mathpar}
 
 \end{document}
