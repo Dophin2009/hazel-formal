@@ -8,111 +8,169 @@
 
 \section{Strings}
 
+We extend the syntax as follows, assuming $s$ is a sequence of characters:
+%
+\begin{center}
+  \vspace*{-1.5em}
+  \[\begin{array}{rccl}
+    \HTyp  & \HTypVar  & \Coloneqq & \cdots \mid \HTypStrC                                                  \\
+    \HExp  & \HExpVar  & \Coloneqq & \cdots \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
+    \IHExp & \IHExpVar & \Coloneqq & \cdots \mid \IHExpStrLit \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
+  \end{array}\]
+\end{center}
+
 \subsection{H-Types and H-Expressions}
 
 \subsubsection{Type Compatibility and Incompatibility}
-\judgbox{\isNotConsistent{\taud}{\taudp}}
+\judgbox{\isNotConsistent{\HTypVar}{\HTypVarP}}
 %
 \begin{mathpar}
-  \judgment{ }{\isNotConsistent{\HTStrC}{\HTArrowC{\taud_1}{\taud_2}}}{ICStrArr1} \\
-  \judgment{ }{\isNotConsistent{\HTArrowC{\taud_1}{\taud_2}}{\HTStrC}}{ICStrArr2}
+  \judgment{ }{\isNotConsistent{\HTypStrC}{\HTypArrowC{\HTypVar_1}{\HTypVar_2}}}{HTICStrArr1} \\
+  \judgment{ }{\isNotConsistent{\HTypArrowC{\HTypVar_1}{\HTypVar_2}}{\HTypStrC}}{HTICStrArr2}
 \end{mathpar}
 
 \subsubsection{Synthesis and Analysis}
-\judgbox{\synType{\Gammad}{\edot}{\taud}}
+\judgbox{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}
 %
 \begin{mathpar}
-  \judgment{ }{\synType{\Gammad}{\HEStrLitC}{\HTStrC}}{SStr} \\
+  \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStrC}}{HTypSStrLit} \\
 
   \judgment{
-    \anaType{\Gammad}{\edot_1}{\HTStrC} \\ \anaType{\Gammad}{\edot_2}{\HTNumC} \\ \anaType{\Gammad}{\edot_3}{\HTNumC}
+    \anaType{\HTypCtx}{\HExpVar_1}{\HTypStrC} \\
+    \anaType{\HTypCtx}{\HExpVar_2}{\HTypNumC} \\
+    \anaType{\HTypCtx}{\HExpVar_3}{\HTypNumC}
   }{
-    \synType{\Gammad}{\HEStrSubC{\edot_1}{\edot_2}{\edot_3}}{\HTStrC}
-  }{SStrSub}
+    \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStrC}
+  }{HTSStrSub}
 \end{mathpar}
 
 \subsection{Action Model}
-\judgbox{\AAArrow{\tauh}{\tauhp}}
+\judgbox{\AcExpArrow{\ZTypVar}{\ZTypVarP}}
 
 \subsubsection{Expression Movement Actions}
 
 \subsubsubsection{\textbf{\textit{Subscript}}}
 %
 \begin{mathpar}
-  \newcommand{\AEMStrSubChild}[2]{
+  \newcommand{\AcExpMovStrSubChild}[2]{
     \judgment{
     }{
-      \AEMChild{#1}{\ZEStrSubC{\edot_1}{\edot_2}{\edot_3}}{#2}
-    }{EMStrSubChild#1}
+      \AcExpMovChild{#1}{\ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{#2}
+    }{AEMStrSubChild#1}
   }
   %
-  \newcommand{\AEMStrSubParent}[2]{
+  \newcommand{\AcExpMovStrSubParent}[2]{
     \judgment{
     }{
-      \AEMParent{#2}{\ZEStrSubC{\edot_1}{\edot_2}{\edot_3}}
-    }{EMStrSubParent#1}
+      \AcExpMovParent{#2}{\ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}
+    }{AEMStrSubParent#1}
   }
   %
-  \AEMStrSubChild{1}{\ZEStrSubCI{\edot_1}{\edot_2}{\edot_3}} \\
-  \AEMStrSubChild{2}{\ZEStrSubCII{\edot_1}{\edot_2}{\edot_3}} \\
-  \AEMStrSubChild{3}{\ZEStrSubCIII{\edot_1}{\edot_2}{\edot_3}} \\
+  \AcExpMovStrSubChild{1}{\ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubChild{2}{\ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubChild{3}{\ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
   %
-  \AEMStrSubParent{1}{\ZEStrSubCI{\edot_1}{\edot_2}{\edot_3}} \\
-  \AEMStrSubParent{2}{\ZEStrSubCII{\edot_1}{\edot_2}{\edot_3}} \\
-  \AEMStrSubParent{3}{\ZEStrSubCIII{\edot_1}{\edot_2}{\edot_3}}
+  \AcExpMovStrSubParent{1}{\ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubParent{2}{\ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubParent{3}{\ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}
 
 \end{mathpar}
 
 \subsubsection{Synthetic and Analytic Expression Actions}
-\judgbox{\AAArrow{\synType{\Gammad}{\ehat}{\taud}}{\synTypeC{\ehatp}{\taudp}}}
+\judgbox{\AcExpArrow{\synType{\HTypCtx}{\ZExpVar}{\HTypVar}}{\synTypeC{\ZExpVarP}{\HTypVarP}}}
 
 \subsubsubsection{Construction}
 %
 \begin{mathpar}
   \judgment{
   }{
-    \ACStrLit{
-      \synType{\Gammad}{\ZCursorHole}{\ZHoleS}
+    \AcConStrLit{
+      \synType{\HTypCtx}{\ZExpCursorEHole}{\ZExpEHole}
     }{
-      \synTypeC{\ZCursor{\HEStrLitC}}{\HTStrC}
+      \synTypeC{\ZExpCursor{\HExpStrLit}}{\HTypStrC}
     }
-  }{SAConStrLit} \\
+  }{ASConStrLit} \\
 
   \judgment{
-    \isConsistent{\taud}{\HTStrC}
+    \isConsistent{\HTypVar}{\HTypStrC}
   }{
-    \ACStrSub{
-      \synType{\Gammad}{\ZCursor{\edot}}{\taud}
+    \AcConStrSub{
+      \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
     }{
-      \synTypeC{\ZEStrSubCII{\edot}{\ZHoleS}{\ZHoleS}}{\HTStrC}
+      \synTypeC{\ZExpStrSubII{\HExpVar}{\ZExpEHole}{\ZExpEHole}}{\HTypStrC}
     }
-  }{SAConStrSub1} \\
+  }{ASConStrSub1} \\
 
   \judgment{
-    \isNotConsistent{\taud}{\HTStrC}
+    \isNotConsistent{\HTypVar}{\HTypStrC}
   }{
-    \ACStrSub{
-      \synType{\Gammad}{\ZCursor{\edot}}{\taud}
+    \AcConStrSub{
+      \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
     }{
-      \synTypeC{\ZEStrSubCII{\ZHole{\edot}}{\ZHoleS}{\ZHoleS}}{\HTStrC}
+      \synTypeC{\ZExpStrSubII{\ZExpNEHole{\HExpVar}}{\ZExpEHole}{\ZExpEHole}}{\HTypStrC}
     }
-  }{SAConStrSub2}
+  }{ASConStrSub2}
 \end{mathpar}
 
-\judgbox{\AAArrow{\contextExpr{\Gammad}{\ehat}}{\anaTypeC{\ehatp}{\taud}}}
+\judgbox{\AcExpArrow{\contextExpr{\HTypCtx}{\ZExpVar}}{\anaTypeC{\ZExpVarP}{\HTypVar}}}
 
 \subsubsubsection{Construction}
 %
 \begin{mathpar}
   \judgment{
-    \isNotConsistent{\taud}{\HTStrC}
+    \isNotConsistent{\HTypVar}{\HTypStrC}
   }{
-    \ACStrLit{
-      \contextExpr{\Gammad}{\ZCursorHole}
+    \AcConStrLit{
+      \contextExpr{\HTypCtx}{\ZExpCursorEHole}
     }{
-      \anaTypeC{\ZHole{\ZCursor{\HEStrLitC}}}{\taud}
+      \anaTypeC{\ZExpNEHole{\ZExpCursor{\HExpStrLit}}}{\HTypVar}
     }
   }{AAConStrLit} \\
+\end{mathpar}
+
+\subsection{Elaboration}
+
+\judgbox{\ElabArrow{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}{\IHExpCtx{d}{\Delta}}}
+        {~~$\HExpVar$ synthesizes type $\HTypVar$ and elaborates to $\IHExpVar$}
+
+\begin{mathpar}
+  \judgment{
+  }{
+    \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypVar}}{\IHExpCtx{\IHExpStrLit}{\IHExpHoleCtxE}}
+  }{ELStrLit}
+
+  \judgment{
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStrC}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypStrC}}{\IHExpHoleCtx_1}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNumC}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypNumC}}{\IHExpHoleCtx_2}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNumC}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypNumC}}{\IHExpHoleCtx_3}} \\
+  }{
+    \ElabArrow{
+      \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStrC}
+    }{
+      \IHExpCtx{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\IHExpHoleCtx_1 \cup \IHExpHoleCtx_2 \cup \IHExpHoleCtx_3}
+    }
+  }{ELStrSub}
+\end{mathpar}
+
+\subsection{Dynamic Semantics}
+
+\subsubsection{IH-Expression Types}
+\judgbox{\hasType{\Delta; \HTypCtx}{d}{\HTypVar}}
+        {~~$\IHExpVar$ is assigned type $\HTypVar$}
+
+\begin{mathpar}
+  \judgment{
+  }{
+    \hasType{\Delta; \HTypCtx}{\IHExpStrLit}{\HTypStrC}
+  }{IHTStrLit}
+
+  \judgment{
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_1}{\HTypStrC} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_2}{\HTypNumC} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_3}{\HTypNumC} \\
+  }{
+    \hasType{\Delta; \HTypCtx}{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\HTypStrC}
+  }{IHTStrSub}
 \end{mathpar}
 
 \end{document}

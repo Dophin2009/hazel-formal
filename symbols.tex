@@ -36,45 +36,67 @@
 \newcommand{\judgment}[3]{\inferrule{#1}{#2}\rulen{\textsc{#3}}}
 \newcommand{\judgbox}[1]{\noindent \fbox{$#1$}}
 
-\newcommand{\Gammad}{\dot{\Gamma}}
-\newcommand{\taud}{\dot{\tau}}
-\newcommand{\taudp}{\taud'}
-\newcommand{\tauh}{\hat{\tau}}
-\newcommand{\tauhp}{\tauh'}
-\newcommand{\edot}{\dot{e}}
-\newcommand{\edotp}{\dot{e}'}
-\newcommand{\ehat}{\hat{e}}
-\newcommand{\ehatp}{\ehat'}
+% H-types
+\newcommand{\HTyp}{\texttt{HTyp}}
+\newcommand{\HTypCtx}{\dot{\Gamma}}
+\newcommand{\HTypVar}{\dot{\tau}}
+\newcommand{\HTypVarP}{\HTypVar'}
+\newcommand{\HTypNumC}{\texttt{num}}
+\newcommand{\HTypStrC}{\texttt{str}}
+\newcommand{\HTypArrowC}[2]{(#1 \to #2)}
 
-\newcommand{\HTNumC}{\texttt{num}}
-\newcommand{\HTStrC}{\texttt{str}}
-\newcommand{\HTArrowC}[2]{(#1 \to #2)}
+% H-expressions
+\newcommand{\HExp}{\texttt{HExp}}
+\newcommand{\HExpVar}{\dot{e}}
+\newcommand{\HExpVarP}{\dot{e}'}
+\newcommand{\HExpStrLit}{\texttt{"}\ubar{s}\texttt{"}}
+\newcommand{\HExpStrSub}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
 
-\newcommand{\HEStrLitC}{\texttt{"}\ubar{s}\texttt{"}}
-\newcommand{\HEStrSubC}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
+% Z-types
+\newcommand{\ZTypVar}{\hat{\tau}}
+\newcommand{\ZTypVarP}{\ZTypVar'}
 
-\newcommand{\ZCursor}[1]{\mathcolorbox{highlight}{\textcolor{darkgreen}{\bm{\triangleright}}#1\textcolor{darkgreen}{\bm{\triangleleft}}}}
-\newcommand{\ZCursorHole}{\ZCursor{\ZHoleS}}
-\newcommand{\ZHole}[1]{\textcolor{lavender}{\bm{\llparenthesis}}#1\textcolor{lavender}{\bm{\rrparenthesis}}}
-\newcommand{\ZHoleS}{\ZHole{}}
+% Z-expressions
+\newcommand{\ZExpVar}{\hat{e}}
+\newcommand{\ZExpVarP}{\ZExpVar'}
+\newcommand{\ZExpCursor}[1]{\mathcolorbox{highlight}{\textcolor{darkgreen}{\bm{\triangleright}}#1\textcolor{darkgreen}{\bm{\triangleleft}}}}
+\newcommand{\ZExpCursorEHole}{\ZExpCursor{\ZExpEHole}}
+\newcommand{\ZExpNEHole}[1]{\textcolor{lavender}{\bm{\llparenthesis}}#1\textcolor{lavender}{\bm{\rrparenthesis}}}
+\newcommand{\ZExpEHole}{\ZExpNEHole{}}
+\newcommand{\ZExpStrSub}[3]{\ZExpCursor{\HExpStrSub{#1}{#2}{#3}}}
+\newcommand{\ZExpStrSubI}[3]{\HExpStrSub{\ZExpCursor{#1}}{#2}{#3}}
+\newcommand{\ZExpStrSubII}[3]{\HExpStrSub{#1}{\ZExpCursor{#2}}{#3}}
+\newcommand{\ZExpStrSubIII}[3]{\HExpStrSub{#1}{#2}{\ZExpCursor{#3}}}
 
-\newcommand{\ZEStrSubC}[3]{\ZCursor{\HEStrSubC{#1}{#2}{#3}}}
-\newcommand{\ZEStrSubCI}[3]{\HEStrSubC{\ZCursor{#1}}{#2}{#3}}
-\newcommand{\ZEStrSubCII}[3]{\HEStrSubC{#1}{\ZCursor{#2}}{#3}}
-\newcommand{\ZEStrSubCIII}[3]{\HEStrSubC{#1}{#2}{\ZCursor{#3}}}
+% IH-expressions
+\newcommand{\IHExp}{\texttt{IHExp}}
+\newcommand{\IHExpVar}{d}
+\newcommand{\IHExpCtx}[2]{#1 \dashv #2}
+\newcommand{\IHExpStrLit}{\texttt{"}\ubar{s}\texttt{"}}
+\newcommand{\IHExpStrSub}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
 
-\newcommand{\AAArrow}[2]{#1 \stackrel{\alpha}{\longrightarrow} #2}
-\newcommand{\AEMChild}[3]{#2 \xrightarrow{\texttt{move child #1}} #3}
-\newcommand{\AEMParent}[2]{#1 \xrightarrow{\texttt{move parent}} #2}
-\newcommand{\AC}[3]{#2 \xrightarrow{\texttt{construct #1}} #3}
-\newcommand{\ACStrLit}[2]{\AC{lit $\HEStrLitC$}{#1}{#2}}
-\newcommand{\ACStrSub}[2]{\AC{subscript}{#1}{#2}}
+% IH hole context
+\newcommand{\IHExpHoleCtx}{\Delta}
+\newcommand{\IHExpHoleCtxE}{\cdot}
+
+% Action expressions
+\newcommand{\AcExpArrow}[2]{#1 \stackrel{\alpha}{\longrightarrow} #2}
+\newcommand{\AcExpMovChild}[3]{#2 \xrightarrow{\texttt{move child #1}} #3}
+\newcommand{\AcExpMovParent}[2]{#1 \xrightarrow{\texttt{move parent}} #2}
+\newcommand{\AcCon}[3]{#2 \xrightarrow{\texttt{construct #1}} #3}
+\newcommand{\AcConStrLit}[2]{\AcCon{lit $\HExpStrLit$}{#1}{#2}}
+\newcommand{\AcConStrSub}[2]{\AcCon{subscript}{#1}{#2}}
+
+% Elaboration expressions
+\newcommand{\ElabArrow}[2]{#1 \rightsquigarrow #2}
 
 \newcommand{\isConsistent}[2]{\ensuremath{#1 \sim #2}}
 \newcommand{\isNotConsistent}[2]{\ensuremath{#1 \nsim #2}}
 
+% Rule expressions
 \newcommand{\contextExpr}[2]{\ensuremath{#1 \vdash #2}}
 \newcommand{\hasType}[3]{\ensuremath{#1 \vdash #2 : #3}}
+\newcommand{\hasTypeC}[2]{\ensuremath{#1 : #2}}
 \newcommand{\hasTypeD}[4]{\ensuremath{#1; #2 \vdash #3 : #4}}
 \newcommand{\hasTypeDX}[3]{\ensuremath{\hasTypeD{\Delta}{#1}{#2}{#3}}}
 \newcommand{\synType}[3]{\ensuremath{#1 \vdash #2 \Rightarrow #3}}
@@ -85,3 +107,5 @@
 \newcommand{\anaTypeC}[2]{\ensuremath{#1 \Leftarrow #2}}
 \newcommand{\anaTypeD}[4]{\ensuremath{#1; #2 \vdash #3 \Leftarrow #4}}
 \newcommand{\anaTypeDX}[3]{\ensuremath{\anaTypeD{\Delta}{#1}{#2}{#3}}}
+
+\newcommand{\isValue}[1]{#1~\mathsf{val}}
