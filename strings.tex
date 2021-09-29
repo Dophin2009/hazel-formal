@@ -23,6 +23,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \subsubsection{Type Compatibility and Incompatibility}
 \judgbox{\isNotConsistent{\HTypVar}{\HTypVarP}}
+        {~~$\HTypVar$ is not consistent with $\HTypVarP$}
 %
 \begin{mathpar}
   \judgment{ }{\isNotConsistent{\HTypStr}{\HTypArrow{\HTypVar_1}{\HTypVar_2}}}{HTICStrArr1} \\
@@ -31,6 +32,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \subsubsection{Synthesis and Analysis}
 \judgbox{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}
+        {~~$\HExpVar$ synthesizes type $\HTypVar$}
 %
 \begin{mathpar}
   \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStr}}{HTypSStrLit} \\
@@ -46,6 +48,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \subsection{Action Model}
 \judgbox{\AcExpArrow{\ZTypVar}{\ZTypVarP}}
+        {~~$\ZTypVar$ becomes $\ZTypVarP$ through action $\AcSym$}
 
 \subsubsection{Expression Movement Actions}
 
@@ -131,10 +134,9 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \subsection{Dynamic Semantics}
 
 \subsubsection{Elaboration}
-
 \judgbox{\ElabArrow{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}{\IHExpCtx{d}{\Delta}}}
         {~~$\HExpVar$ synthesizes type $\HTypVar$ and elaborates to $\IHExpVar$}
-
+%
 \begin{mathpar}
   \judgment{
   }{
@@ -157,7 +159,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \subsubsection{IH-Expression Types}
 \judgbox{\hasType{\Delta; \HTypCtx}{d}{\HTypVar}}
         {~~$\IHExpVar$ is assigned type $\HTypVar$}
-
+%
 \begin{mathpar}
   \judgment{
   }{
@@ -175,7 +177,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \judgbox{\isGround{\HTypVar}}
         {~~$\HTypVar$ is a ground type}
-
+%
 \begin{mathpar}
   \judgment{
   }{
@@ -186,7 +188,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \subsubsection{Values}
 \judgbox{\isVal{\IHExpVar}}
         {~~$\IHExpVar$ is a value}
-
+%
 \begin{mathpar}
   \judgment{
   }{
@@ -196,7 +198,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \judgbox{\isIndet{\IHExpVar}}
         {~~$\IHExpVar$ is indeterminate}
-
+%
 \begin{mathpar}
   \judgment{
     \isIndet{\IHExpVar_1} \\
@@ -224,16 +226,15 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \end{mathpar}
 
 \subsubsection{Evaluation}
-
 \begin{center}
   $\mathsf{EvalCtx}~\EvalCtx \Coloneqq \cdots \mid \IHExpStrSub{\EvalCtx}{\IHExpVar_2}{\IHExpVar_3}
                                \mid \IHExpStrSub{\IHExpVar_1}{\EvalCtx}{\IHExpVar_3}
                                \mid \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\EvalCtx}$
 \end{center}
-
+%
 \judgbox{\EvalCtxEx{\IHExpVar}{\IHExpVarP}}
         {~~$\IHExpVar$ is obtained by placing $\IHExpVarP$ at the mark in $\EvalCtx$}
-
+%
 \begin{mathpar}
   \judgment{
     \EvalCtxEx{\IHExpVar_1}{\IHExpVarP_1}
@@ -272,7 +273,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 
 \judgbox{\EvalTran{\IHExpVar_1}{\IHExpVar_2}}
         {~~$\IHExpVar_1$ transitions to $\IHExpVar_2$}
-
+%
 \begin{mathpar}
   \judgment{
     \IHExpStrSub{\IHExpStrLitVS{1}}{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}} = \IHExpStrLitVS{4}
