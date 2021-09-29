@@ -1,8 +1,12 @@
 LATEXMK ?= latexmk
 
-PRELUDE = prelude.tex symbols.tex
+PRELUDE = $(wildcard prelude/*.tex)
+SOURCES = $(wildcard *.tex)
+TARGETS = $(patsubst %.tex,%.pdf,$(SOURCES))
 
 .PHONY : clean
+
+all : $(TARGETS)
 
 %.pdf : %.tex $(PRELUDE)
 	$(LATEXMK) $*.tex
