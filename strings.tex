@@ -145,18 +145,25 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \begin{mathpar}
   \judgment{
   }{
-    \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypVar}}{\IHExpCtx{\IHExpStrLit}{\IHExpHoleCtxE}}
+    \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypStr}}{\IHExpCtx{\IHExpStrLit}{\IHExpHoleCtxE}}
   }{ELStrLit}
 
   \judgment{
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypStr}}{\IHExpHoleCtx_1}} \\
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypNum}}{\IHExpHoleCtx_2}} \\
-    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypNum}}{\IHExpHoleCtx_3}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypVar_1}}{\IHExpHoleCtx_1}} \\\\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypVar_2}}{\IHExpHoleCtx_2}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypVar_3}}{\IHExpHoleCtx_3}} \\\\
+    \IHExpVarP_1 \coloneqq \IHExpCast{\IHExpVar_1}{\HTypVar_1}{\HTypStr} \\
+    \IHExpVarP_2 \coloneqq \IHExpCast{\IHExpVar_2}{\HTypVar_2}{\HTypNum} \\
+    \IHExpVarP_3 \coloneqq \IHExpCast{\IHExpVar_3}{\HTypVar_3}{\HTypNum} \\
   }{
     \ElabArrow{
       \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStr}
     }{
-      \IHExpCtx{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}{\IHExpHoleCtx_1 \cup \IHExpHoleCtx_2 \cup \IHExpHoleCtx_3}
+      \IHExpCtx{
+        \IHExpStrSub{\IHExpVarP_1}
+                    {\IHExpVarP_2}
+                    {\IHExpVarP_3}
+      }{\IHExpHoleCtx_1 \cup \IHExpHoleCtx_2 \cup \IHExpHoleCtx_3}
     }
   }{ELStrSub}
 \end{mathpar}
