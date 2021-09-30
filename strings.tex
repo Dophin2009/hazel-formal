@@ -13,10 +13,14 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 %
 \begin{center}
   \vspace*{-1.5em}
-  \[\begin{array}{rccl}
-    \HTyp  & \HTypVar  & \Coloneqq & \cdots \mid \HTypStr                                                  \\
-    \HExp  & \HExpVar  & \Coloneqq & \cdots \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
-    \IHExp & \IHExpVar & \Coloneqq & \cdots \mid \IHExpStrLit \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
+  \[\begin{array}{rcccl}
+    \HTyp  & \HTypVar  & \Coloneqq & \cdots & \mid \HTypStr                                                  \\
+    \HExp  & \HExpVar  & \Coloneqq & \cdots & \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
+    \ZExp  & \ZExpVar  & \Coloneqq & \cdots & \mid \ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} 
+                                         \mid \ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+           &           &           &   & \mid \ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}
+                                         \mid \ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+    \IHExp & \IHExpVar & \Coloneqq & \cdots & \mid \IHExpStrLit \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
   \end{array}\]
 \end{center}
 
