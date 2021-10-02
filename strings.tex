@@ -14,13 +14,16 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \begin{center}
   \vspace*{-1.5em}
   \[\begin{array}{rcccl}
-    \HTyp  & \HTypVar  & \Coloneqq & \cdots & \mid \HTypStr                                                  \\
-    \HExp  & \HExpVar  & \Coloneqq & \cdots & \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
-    \ZExp  & \ZExpVar  & \Coloneqq & \cdots & \mid \ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} 
-                                         \mid \ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
-           &           &           &   & \mid \ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}
-                                         \mid \ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
-    \IHExp & \IHExpVar & \Coloneqq & \cdots & \mid \IHExpStrLit \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
+    \HTyp     & \HTypVar     & \Coloneqq & \cdots & \mid \HTypStr                                                  \\
+    \HExp     & \HExpVar     & \Coloneqq & \cdots & \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
+    \ZExp     & \ZExpVar     & \Coloneqq & \cdots & \mid \ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} 
+                                               \mid \ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+              &              &           &   & \mid \ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}
+                                               \mid \ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+    \IHExp    & \IHExpVar    & \Coloneqq & \cdots & \mid \IHExpCastExceptVar{\IHExpVar}
+                                               \mid \IHExpStrLit 
+                                               \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
+    \IHExcept & \IHExceptVar & \Coloneqq & \cdots & \mid \IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}
   \end{array}\]
 \end{center}
 
@@ -51,6 +54,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
   }{HTSStrSub}
 \end{mathpar}
 
+\newpage
 \subsection{Action Model}
 \judgbox{\AcExpArrow{\ZTypVar}{\ZTypVarP}}
         {~~$\ZTypVar$ becomes $\ZTypVarP$ through action $\AcSym$}
@@ -67,16 +71,16 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     }{AEMStrSubChild#1}
   }
   %
+  \AcExpMovStrSubChild{1}{\ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubChild{2}{\ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  \AcExpMovStrSubChild{3}{\ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
+  %
   \newcommand{\AcExpMovStrSubParent}[2]{
     \judgment{
     }{
       \AcExpMovParent{#2}{\ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}
     }{AEMStrSubParent#1}
   }
-  %
-  \AcExpMovStrSubChild{1}{\ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
-  \AcExpMovStrSubChild{2}{\ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
-  \AcExpMovStrSubChild{3}{\ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
   %
   \AcExpMovStrSubParent{1}{\ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
   \AcExpMovStrSubParent{2}{\ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}} \\
@@ -152,9 +156,9 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypVar_1}}{\IHExpHoleCtx_1}} \\\\
     \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypVar_2}}{\IHExpHoleCtx_2}} \\
     \ElabArrow{\anaType{\HTypCtx}{\HExpVar_3}{\HTypNum}}{\IHExpCtx{\hasTypeC{\IHExpVar_3}{\HTypVar_3}}{\IHExpHoleCtx_3}} \\\\
-    \IHExpVarP_1 \coloneqq \IHExpCast{\IHExpVar_1}{\HTypVar_1}{\HTypStr} \\
-    \IHExpVarP_2 \coloneqq \IHExpCast{\IHExpVar_2}{\HTypVar_2}{\HTypNum} \\
-    \IHExpVarP_3 \coloneqq \IHExpCast{\IHExpVar_3}{\HTypVar_3}{\HTypNum} \\
+    \IHExpVarP_1 = \IHExpCastTyp{\IHExpVar_1}{\HTypVar_1}{\HTypStr} \\
+    \IHExpVarP_2 = \IHExpCastTyp{\IHExpVar_2}{\HTypVar_2}{\HTypNum} \\
+    \IHExpVarP_3 = \IHExpCastTyp{\IHExpVar_3}{\HTypVar_3}{\HTypNum} \\
   }{
     \ElabArrow{
       \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStr}
@@ -173,6 +177,12 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
         {~~$\IHExpVar$ is assigned type $\HTypVar$}
 %
 \begin{mathpar}
+  \judgment{
+    \hasType{\Delta; \HTypCtx}{\IHExpVar}{\HTypVar}
+  }{
+    \hasType{\Delta; \HTypCtx}{\IHExpCastExceptVar{\IHExpVar}}{\HTypVar}
+  }{IHVIErrCast} \\
+
   \judgment{
   }{
     \hasType{\Delta; \HTypCtx}{\IHExpStrLit}{\HTypStr}
@@ -212,6 +222,11 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
         {~~$\IHExpVar$ is indeterminate}
 %
 \begin{mathpar}
+  \judgment{
+  }{
+    \isIndet{\IHExpCastExceptVar{\IHExpVar_1}}
+  }{IHVIErrCast} \\
+
   \judgment{
     \isIndet{\IHExpVar_1} \\
     \isFinal{\IHExpVar_2} \\
@@ -288,10 +303,56 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 %
 \begin{mathpar}
   \judgment{
-    \IHExpStrSub{\IHExpStrLitVS{1}}{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}} = \IHExpStrLitVS{4}
+    \ensuremath{0 \le \IHExpNumLitVS{1} < \IHExpNumLitVS{2} \le \IHExpStrLen{\IHExpStrLitVS{1}}} \\\\
+    \ensuremath{\IHExpStrLitVS{1} = \set{ c_{i} }_{i = 0}^{\IHExpStrLen{\IHExpStrLitVS{1}} - 1}} \\
+    \ensuremath{\IHExpStrLitVS{2} = \set{ c_i }_{i = n_1}^{n_2 -1}} \\
   }{
-    \EvalTran{\IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}}{\IHExpStrLitS{4}}
-  }{EVTStrSub} 
+    \EvalTran{
+      \IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}
+    }{
+      \IHExpStrLitS{2}
+    }
+  }{EVTStrSubSuccI} \\
+
+  \judgment{
+    \ensuremath{0 \le \IHExpNumLitVS{1} = \IHExpNumLitVS{2} < \IHExpStrLen{\IHExpStrLitVS{1}}} \\
+    \ensuremath{\IHExpStrLitVS{1} = \set{ c_{i} }_{i = 0}^{\IHExpStrLen{\IHExpStrLitVS{1}} - 1}} \\
+    \ensuremath{\IHExpStrLitVS{2} = \set{}} \\
+  }{
+    \EvalTran{
+      \IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}
+    }{
+      \IHExpStrLitS{2}
+    }
+  }{EVTStrSubSuccII} \\
+
+  \judgment{
+    \ensuremath{\IHExpNumLitVS{1} < 0 \lor \IHExpNumLitVS{1} > \IHExpStrLen{\IHExpStrLitVS{1}}} \\
+  }{
+    \EvalTran{
+      \IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}
+    }{
+      \IHExpCast{
+        (\IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}})
+      }{
+        \IHExpExceptOOB{\IHExpNumLitVS{1}}{0}{\ensuremath{\IHExpStrLen{\IHExpStrLitVS{1}} - 1}}
+      }
+    }
+  }{EVTStrSubOob2} \\
+
+  \judgment{
+    \ensuremath{\IHExpNumLitVS{2} < \IHExpNumLitVS{1} \lor \IHExpNumLitVS{2} > \IHExpStrLen{\IHExpStrLitVS{1}}} \\
+  }{
+    \EvalTran{
+      \IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}}
+    }{
+      \IHExpCast{
+        (\IHExpStrSub{\IHExpStrLitS{1}}{\IHExpNumLitS{1}}{\IHExpNumLitS{2}})
+      }{
+        \IHExpExceptOOB{\IHExpNumLitVS{2}}{\IHExpNumLitVS{1}}{\ensuremath{\IHExpStrLen{\IHExpStrLitVS{2}}}}
+      }
+    }
+  }{EVTStrSubOob2} \\
 \end{mathpar}
 
 \end{document}
