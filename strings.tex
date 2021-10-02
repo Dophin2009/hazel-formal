@@ -4,11 +4,12 @@
 \input{prelude/prelude.tex}
 \input{prelude/symbols.tex}
 % }}}
-
+% {{{ Document
 \begin{document}
 
 \section{Strings}
 
+% {{{ Syntax Extension
 We extend the syntax as follows, assuming $s$ is a sequence of characters:
 %
 \begin{center}
@@ -26,9 +27,11 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \IHExcept & \IHExceptVar & \Coloneqq & \cdots & \mid \IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}
   \end{array}\]
 \end{center}
-
+% }}}
+% {{{ H-Types and H-Expressions
 \subsection{H-Types and H-Expressions}
 
+% {{{ Type Consistency and Inconsistency
 \subsubsection{Type Consistency and Inconsistency}
 \judgbox{\isNotConsistent{\HTypVar}{\HTypVarP}}
         {~~$\HTypVar$ is not consistent with $\HTypVarP$}
@@ -37,7 +40,8 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
   \judgment{ }{\isNotConsistent{\HTypStr}{\HTypArrow{\HTypVar_1}{\HTypVar_2}}}{HTICStrArr1} \\
   \judgment{ }{\isNotConsistent{\HTypArrow{\HTypVar_1}{\HTypVar_2}}{\HTypStr}}{HTICStrArr2}
 \end{mathpar}
-
+% }}}
+% {{{ Synthesis and Analysis
 \subsubsection{Synthesis and Analysis}
 \judgbox{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}
         {~~$\HExpVar$ synthesizes type $\HTypVar$}
@@ -53,12 +57,16 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \synType{\HTypCtx}{\HExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}{\HTypStr}
   }{HTSStrSub}
 \end{mathpar}
+% }}}
 
+% }}}
+% {{{ Action Model
 \newpage
 \subsection{Action Model}
 \judgbox{\AcExpArrow{\ZTypVar}{\ZTypVarP}}
         {~~$\ZTypVar$ becomes $\ZTypVarP$ through action $\AcSym$}
 
+% {{{ Expression Movement Actions
 \subsubsection{Expression Movement Actions}
 
 \subsubsubsection{\textbf{\textit{Subscript}}}
@@ -87,10 +95,11 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
   \AcExpMovStrSubParent{3}{\ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}}
 
 \end{mathpar}
-
+% }}}
+% {{{ Synthetic and Analytic Expression Actions
 \subsubsection{Synthetic and Analytic Expression Actions}
 \judgbox{\AcExpArrow{\synType{\HTypCtx}{\ZExpVar}{\HTypVar}}{\synTypeC{\ZExpVarP}{\HTypVarP}}}
-
+%
 \subsubsubsection{Construction}
 %
 \begin{mathpar}
@@ -125,7 +134,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 \end{mathpar}
 
 \judgbox{\AcExpArrow{\contextExpr{\HTypCtx}{\ZExpVar}}{\anaTypeC{\ZExpVarP}{\HTypVar}}}
-
+%
 \subsubsubsection{Construction}
 %
 \begin{mathpar}
@@ -139,9 +148,13 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     }
   }{AAConStrLit} \\
 \end{mathpar}
+% }}}
 
+% }}}
+% {{{ Dynamic Semantics
 \subsection{Dynamic Semantics}
 
+% {{{ Elaboration
 \subsubsection{Elaboration}
 \judgbox{\ElabArrow{\synType{\HTypCtx}{\HExpVar}{\HTypVar}}{\IHExpCtx{d}{\Delta}}}
         {~~$\HExpVar$ synthesizes type $\HTypVar$ and elaborates to $\IHExpVar$}
@@ -171,7 +184,8 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     }
   }{ELStrSub}
 \end{mathpar}
-
+% }}}
+% {{{ IH-Expression Types
 \subsubsection{IH-Expression Types}
 \judgbox{\hasType{\Delta; \HTypCtx}{d}{\HTypVar}}
         {~~$\IHExpVar$ is assigned type $\HTypVar$}
@@ -206,7 +220,8 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \isGround{\HTypStr}
   }{IHTStrGround}
 \end{mathpar}
-
+% }}}
+% {{{ Values
 \subsubsection{Values}
 \judgbox{\isVal{\IHExpVar}}
         {~~$\IHExpVar$ is a value}
@@ -251,7 +266,8 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     \isIndet{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}
   }{IHVIStrSub3}
 \end{mathpar}
-
+% }}}
+% {{{ Evaulation
 \subsubsection{Evaluation}
 \begin{center}
   $\mathsf{EvalCtx}~\EvalCtx \Coloneqq \cdots \mid \IHExpStrSub{\EvalCtx}{\IHExpVar_2}{\IHExpVar_3}
@@ -354,5 +370,9 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
     }
   }{EVTStrSubOob2} \\
 \end{mathpar}
+% }}}
+
+% }}}
 
 \end{document}
+% }}}
