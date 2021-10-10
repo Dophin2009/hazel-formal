@@ -14,19 +14,29 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
 %
 \begin{center}
   \vspace*{-1.5em}
-  \[\begin{array}{rcccl}
-    \HTyp     & \HTypVar     & \Coloneqq & \cdots & \mid \HTypStr                                                  \\
-    \HExp     & \HExpVar     & \Coloneqq & \cdots & \mid \HExpStrLit \mid \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar}      \\
-    \ZExp     & \ZExpVar     & \Coloneqq & \cdots & \mid \ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} 
-                                               \mid \ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
-              &              &           &   & \mid \ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}
-                                               \mid \ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
-    \IHExp    & \IHExpVar    & \Coloneqq & \cdots & \mid \IHExpCastExceptVar{\IHExpVar}
-                                               \mid \IHExpStrLit 
-                                               \mid \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
-    \IHExcept & \IHExceptVar & \Coloneqq & \cdots & \mid \IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}
+  \[\begin{array}{rccccl}
+    \HTyp     & \HTypVar     & \Coloneqq & \cdots & \mid & \HTypStr                                                  \\
+    \HExp     & \HExpVar     & \Coloneqq & \cdots & \mid & \HExpStrLit 
+                                               \mid   \HExpStrConcat{\HExpVar}{\HExpVar}
+                                               \mid   \HExpStrSub{\HExpVar}{\HExpVar}{\HExpVar} \\
+    \ZExp     & \ZExpVar     & \Coloneqq & \cdots & \mid & \ZExpStrSub{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} 
+                                               \mid   \ZExpStrSubI{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+              &              &           &   & \mid & \ZExpStrSubII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3}
+                                               \mid   \ZExpStrSubIII{\HExpVar_1}{\HExpVar_2}{\HExpVar_3} \\
+    \IHExp    & \IHExpVar    & \Coloneqq & \cdots & \mid & \IHExpCastExceptVar{\IHExpVar}
+                                               \mid   \IHExpStrLit 
+                                               \mid   \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
+    \IHExcept & \IHExceptVar & \Coloneqq &   &   & \IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}
   \end{array}\]
 \end{center}
+%
+The \IHExp{} construction $\IHExpCastExceptVar{\IHExpVar}$ indicates an errored operation, where
+$\IHExceptVar$ may be some error value (\IHExcept{}).
+%
+The error $\IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}$ indicates that
+some operation attempted to access out-of-bounds, with $\IHExpNumLitVS{1}$ being the index and
+$\IHExpNumLitVS{2}$ and $\IHExpNumLitVS{3}$ being the lower and upper bounds, respectively, of the
+acceptable values, inclusive.
 % }}}
 % {{{ H-Types and H-Expressions
 \subsection{H-Types and H-Expressions}
@@ -47,7 +57,14 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
         {~~$\HExpVar$ synthesizes type $\HTypVar$}
 %
 \begin{mathpar}
-  \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStr}}{HTypSStrLit} \\
+  \judgment{ }{\synType{\HTypCtx}{\HExpStrLit}{\HTypStr}}{HTSStrLit} \\
+
+  \judgment{
+    \anaType{\HTypCtx}{\HExpVar_1}{\HTypStr} \\
+    \anaType{\HTypCtx}{\HExpVar_2}{\HTypStr}
+  }{
+    \synType{\HTypCtx}{\HExpStrConcat{\HExpVar_1}{\HExpVar_2}}{\HTypStr}
+  }{HTSStrConcat} \\
 
   \judgment{
     \anaType{\HTypCtx}{\HExpVar_1}{\HTypStr} \\

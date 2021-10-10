@@ -45,30 +45,40 @@
 
 % H-expressions
 \newcommand{\HExp}{\texttt{HExp}}
-\newcommand{\HExpVar}{\dot{e}}
-\newcommand{\HExpVarP}{\dot{e}'}
-\newcommand{\HExpStrLit}{\texttt{"}\underline{s}\texttt{"}}
-\newcommand{\HExpStrSub}[3]{#1\texttt{[}#2\texttt{:}#3\texttt{]}}
+\newcommand{\HExpVar}{\ensuremath{\dot{e}}}
+\newcommand{\HExpVarP}{\ensuremath{\dot{e}'}}
+\newcommand{\HExpStrLit}{\ensuremath{\texttt{"}\underline{s}\texttt{"}}}
+\newcommand{\HExpStrSub}[3]{\ensuremath{#1\texttt{[}#2\texttt{:}#3\texttt{]}}}
+\newcommand{\HExpStrConcatOp}{\ensuremath{\textsuperscript{$\wedge$}}}
+\newcommand{\HExpStrConcat}[2]{\ensuremath{#1\ \HExpStrConcatOp\ #2}}
 
 % Z-types
-\newcommand{\ZTypVar}{\hat{\tau}}
-\newcommand{\ZTypVarP}{\ZTypVar'}
+\newcommand{\ZTypVar}{\ensuremath{\hat{\tau}}}
+\newcommand{\ZTypVarP}{\ensuremath{\ZTypVar'}}
 
 % Z-expressions
 \newcommand{\ZExp}{\texttt{ZExp}}
-\newcommand{\ZExpVar}{\hat{e}}
-\newcommand{\ZExpVarP}{\ZExpVar'}
-\newcommand{\ZExpCursor}[1]{\mathcolorbox{highlight}{\textcolor{darkgreen}{\bm{\triangleright}}#1\textcolor{darkgreen}{\bm{\triangleleft}}}}
-\newcommand{\ZExpCursorEHole}{\ZExpCursor{\ZExpEHole}}
-\newcommand{\ZExpNEHole}[1]{\textcolor{lavender}{\bm{\llparenthesis}}#1\textcolor{lavender}{\bm{\rrparenthesis}}}
-\newcommand{\ZExpEHole}{\ZExpNEHole{}}
-\newcommand{\ZExpStrSub}[3]{\ZExpCursor{\HExpStrSub{#1}{#2}{#3}}}
-\newcommand{\ZExpStrSubI}[3]{\HExpStrSub{\ZExpCursor{#1}}{#2}{#3}}
-\newcommand{\ZExpStrSubII}[3]{\HExpStrSub{#1}{\ZExpCursor{#2}}{#3}}
-\newcommand{\ZExpStrSubIII}[3]{\HExpStrSub{#1}{#2}{\ZExpCursor{#3}}}
+\newcommand{\ZExpVar}{\ensuremath{\hat{e}}}
+\newcommand{\ZExpVarP}{\ensuremath{\ZExpVar'}}
+\newcommand{\ZExpCursor}[1]{\ensuremath{\mathcolorbox{highlight}{\textcolor{darkgreen}{\bm{\triangleright}}#1\textcolor{darkgreen}{\bm{\triangleleft}}}}}
+\newcommand{\ZExpCursorEHole}{\ensuremath{\ZExpCursor{\ZExpEHole}}}
+\newcommand{\ZExpNEHole}[1]{\ensuremath{\textcolor{lavender}{\bm{\llparenthesis}}#1\textcolor{lavender}{\bm{\rrparenthesis}}}}
+\newcommand{\ZExpEHole}{\ensuremath{\ZExpNEHole{}}}
+\newcommand{\ZExpStrConcat}[2]{\ensuremath{\ZExpCursor{\HExpStrConcat{#1}{#2}}}}
+\newcommand{\ZExpStrConcatI}[2]{\ensuremath{\HExpStrConcat{\ZExpCursor{#1}}{#2}}}
+\newcommand{\ZExpStrConcatII}[2]{\ensuremath{\HExpStrConcat{#1}{\ZExpCursor{#2}}}}
+\newcommand{\ZExpStrSub}[3]{\ensuremath{\ZExpCursor{\HExpStrSub{#1}{#2}{#3}}}}
+\newcommand{\ZExpStrSubI}[3]{\ensuremath{\HExpStrSub{\ZExpCursor{#1}}{#2}{#3}}}
+\newcommand{\ZExpStrSubII}[3]{\ensuremath{\HExpStrSub{#1}{\ZExpCursor{#2}}{#3}}}
+\newcommand{\ZExpStrSubIII}[3]{\ensuremath{\HExpStrSub{#1}{#2}{\ZExpCursor{#3}}}}
+
+% IH-errors
+\newcommand{\IHExcept}{\texttt{IHErr}}
+\newcommand{\IHExceptVar}{\ensuremath{\epsilon}}
+\newcommand{\IHExceptOOB}[3]{\ensuremath{\texttt{OOB}\{#1, [#2, #3]\}}}
 
 % IH-expressions
-\newcommand{\IHExp}{\ensuremath{\texttt{IHExp}}}
+\newcommand{\IHExp}{\texttt{IHExp}}
 \newcommand{\IHExpVar}{\ensuremath{d}}
 \newcommand{\IHExpVarP}{\ensuremath{\IHExpVar'}}
 \newcommand{\IHExpCtx}[2]{\ensuremath{#1 \dashv #2}}
@@ -81,22 +91,16 @@
 \newcommand{\IHExpStrLitV}[1]{\ensuremath{\texttt{"}s\texttt{"}}}
 \newcommand{\IHExpStrLitVS}[1]{\ensuremath{\texttt{"}s_#1\texttt{"}}}
 \newcommand{\IHExpStrLitX}[1]{\ensuremath{\texttt{"}\underline{#1}\texttt{"}}}
+\newcommand{\IHExpStrConcat}[2]{\ensuremath{#1\ \HExpStrConcatOp\ #2}}
 \newcommand{\IHExpStrSub}[3]{\ensuremath{#1\texttt{[}#2\texttt{:}#3\texttt{]}}}
 \newcommand{\IHExpStrLen}[1]{\ensuremath{\mathsf{len}(#1)}}
 \newcommand{\IHExpHoleCtx}{\ensuremath{\Delta}}
 \newcommand{\IHExpHoleCtxE}{\ensuremath{\cdot}}
-
 \newcommand{\IHExpCast}[2]{\ensuremath{#1 \langle #2 \rangle}}
 \newcommand{\IHExpCastTyp}[3]{\ensuremath{\IHExpCast{#1}{#2 \Rightarrow #3}}}
-
-
-\newcommand{\IHExcept}{\ensuremath{\texttt{IHErr}}}
-\newcommand{\IHExceptVar}{\ensuremath{\epsilon}}
-\newcommand{\IHExceptOOB}[3]{\ensuremath{\texttt{OOB}(#1, #2, #3)}}
-
 \newcommand{\IHExpCastExcept}[2]{\ensuremath{\IHExpCast{#1}{\IHExpExcept{#2}}}}
 \newcommand{\IHExpCastExceptVar}[1]{\ensuremath{\IHExpCastExcept{#1}{\IHExceptVar}}}
-\newcommand{\IHExpExcept}[1]{\ensuremath{\mathbb{E} = #1}}
+\newcommand{\IHExpExcept}[1]{\ensuremath{#1}}
 \newcommand{\IHExpExceptVar}{\ensuremath{\IHExpExcept{\IHExceptVar}}}
 \newcommand{\IHExpExceptOOB}[3]{\ensuremath{\IHExpExcept{\IHExceptOOB{#1}{#2}{#3}}}}
 
