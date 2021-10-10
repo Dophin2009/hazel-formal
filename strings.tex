@@ -221,7 +221,23 @@ acceptable values, inclusive.
   \judgment{
   }{
     \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypStr}}{\IHExpCtx{\IHExpStrLit}{\IHExpHoleCtxE}}
-  }{ELStrLit}
+  }{ELStrLit} \\
+
+  \judgment{
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypVar_1}}{\IHExpHoleCtx_1}} \\
+    \ElabArrow{\anaType{\HTypCtx}{\HExpVar_2}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_2}{\HTypVar_2}}{\IHExpHoleCtx_2}} \\\\
+    \IHExpVarP_1 = \IHExpCastTyp{\IHExpVar_1}{\HTypVar_1}{\HTypStr} \\
+    \IHExpVarP_2 = \IHExpCastTyp{\IHExpVar_2}{\HTypVar_2}{\HTypStr} \\
+  }{
+    \ElabArrow{
+      \synType{\HTypCtx}{\HExpStrConcat{\HExpVar_1}{\HExpVar_2}}{\HTypStr}
+    }{
+      \IHExpCtx{
+        \IHExpStrConcat{\IHExpVarP_1}
+                       {\IHExpVarP_2}
+      }{\IHExpHoleCtx_1 \cup \IHExpHoleCtx_2}
+    }
+  }{ELStrConcat}
 
   \judgment{
     \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypVar_1}}{\IHExpHoleCtx_1}} \\\\
