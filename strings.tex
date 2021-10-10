@@ -274,7 +274,14 @@ acceptable values, inclusive.
   \judgment{
   }{
     \hasType{\Delta; \HTypCtx}{\IHExpStrLit}{\HTypStr}
-  }{IHTStrLit}
+  }{IHTStrLit} \\
+
+  \judgment{
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_1}{\HTypStr} \\
+    \hasType{\Delta; \HTypCtx}{\IHExpVar_2}{\HTypStr} \\
+  }{
+    \hasType{\Delta; \HTypCtx}{\IHExpStrConcat{\IHExpVar_1}{\IHExpVar_2}}{\HTypStr}
+  }{IHTStrSub} \\
 
   \judgment{
     \hasType{\Delta; \HTypCtx}{\IHExpVar_1}{\HTypStr} \\
@@ -319,6 +326,20 @@ acceptable values, inclusive.
   \judgment{
     \isIndet{\IHExpVar_1} \\
     \isFinal{\IHExpVar_2} \\
+  }{
+    \isIndet{\IHExpStrConcat{\IHExpVar_1}{\IHExpVar_2}}
+  }{IHVIStrConcat1} \\
+
+  \judgment{
+    \isFinal{\IHExpVar_1} \\
+    \isIndet{\IHExpVar_2} \\
+  }{
+    \isIndet{\IHExpStrConcat{\IHExpVar_1}{\IHExpVar_2}}
+  }{IHVIStrConcat2} \\
+
+  \judgment{
+    \isIndet{\IHExpVar_1} \\
+    \isFinal{\IHExpVar_2} \\
     \isFinal{\IHExpVar_3}
   }{
     \isIndet{\IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}}
@@ -357,6 +378,27 @@ acceptable values, inclusive.
     \EvalCtxEx{\IHExpVar_1}{\IHExpVarP_1}
   }{
     \EvalCtxExF{
+      \IHExpStrConcat{\IHExpVar_1}{\IHExpVar_2}
+    }{
+      \IHExpStrConcat{\EvalCtx}{\IHExpVar_2}
+    }{\IHExpVarP_1}
+  }{EVRStrConcat1} \\
+
+  \judgment{
+    \optPremise{\isFinal{\IHExpVar_1}} \\
+    \EvalCtxEx{\IHExpVar_2}{\IHExpVarP_2}
+  }{
+    \EvalCtxExF{
+      \IHExpStrConcat{\IHExpVar_1}{\IHExpVar_2}
+    }{
+      \IHExpStrConcat{\IHExpVar_1}{\EvalCtx}
+    }{\IHExpVarP_2}
+  }{EVRStrConcat2} \\
+
+  \judgment{
+    \EvalCtxEx{\IHExpVar_1}{\IHExpVarP_1}
+  }{
+    \EvalCtxExF{
       \IHExpStrSub{\IHExpVar_1}{\IHExpVar_2}{\IHExpVar_3}
     }{
       \IHExpStrSub{\EvalCtx}{\IHExpVar_2}{\IHExpVar_3}
@@ -373,7 +415,6 @@ acceptable values, inclusive.
       \IHExpStrSub{\IHExpVar_1}{\EvalCtx}{\IHExpVar_3}
     }{\IHExpVarP_2}
   }{EVRStrSub2} \\
-
 
   \judgment{
     \optPremise{\isFinal{\IHExpVar_1}} \\
@@ -392,6 +433,18 @@ acceptable values, inclusive.
         {~~$\IHExpVar_1$ transitions to $\IHExpVar_2$}
 %
 \begin{mathpar}
+  \judgment{
+    \ensuremath{\IHExpStrLitVS{1} = \set{ b_{i} }_{i = 0}^{\IHExpStrLen{\IHExpStrLitVS{1}} - 1}} \\
+    \ensuremath{\IHExpStrLitVS{2} = \set{ c_{i} }_{i = 0}^{\IHExpStrLen{\IHExpStrLitVS{2}} - 1}} \\
+    \ensuremath{\IHExpStrLitVS{3} = \IHExpStrLitVS{1} \frown \IHExpStrLitVS{2}} \\
+  }{
+    \EvalTran{
+      \IHExpStrConcat{\IHExpStrLitS{1}}{\IHExpStrLitS{2}}
+    }{
+      \IHExpStrLitS{3}
+    }
+  }{EVTStrConcat} \\
+
   \judgment{
     \ensuremath{0 \le \IHExpNumLitVS{1} < \IHExpNumLitVS{2} \le \IHExpStrLen{\IHExpStrLitVS{1}}} \\\\
     \ensuremath{\IHExpStrLitVS{1} = \set{ c_{i} }_{i = 0}^{\IHExpStrLen{\IHExpStrLitVS{1}} - 1}} \\
