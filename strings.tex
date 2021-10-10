@@ -153,6 +153,26 @@ acceptable values, inclusive.
   \judgment{
     \isConsistent{\HTypVar}{\HTypStr}
   }{
+    \AcConStrConcat{
+      \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
+    }{
+      \synTypeC{\ZExpStrConcatII{\HExpVar}{\ZExpEHole}}{\HTypStr}
+    }
+  }{ASConStrConcat1} \\
+
+  \judgment{
+    \isNotConsistent{\HTypVar}{\HTypStr}
+  }{
+    \AcConStrConcat{
+      \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
+    }{
+      \synTypeC{\ZExpStrConcatII{\ZExpNEHole{\HExpVar}}{\ZExpEHole}}{\HTypStr}
+    }
+  }{ASConStrConcat2} \\
+
+  \judgment{
+    \isConsistent{\HTypVar}{\HTypStr}
+  }{
     \AcConStrSub{
       \synType{\HTypCtx}{\ZExpCursor{\HExpVar}}{\HTypVar}
     }{
