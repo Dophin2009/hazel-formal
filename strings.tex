@@ -89,6 +89,27 @@ acceptable values, inclusive.
 \subsubsubsection{\textbf{\textit{Subscript}}}
 %
 \begin{mathpar}
+  \newcommand{\AcExpMovStrConcatChild}[2]{
+    \judgment{
+    }{
+      \AcExpMovChild{#1}{\ZExpStrConcat{\HExpVar_1}{\HExpVar_2}}{#2}
+    }{AEMStrConcatChild#1}
+  }
+  %
+  \AcExpMovStrConcatChild{1}{\ZExpStrConcatI{\HExpVar_1}{\HExpVar_2}} \\
+  \AcExpMovStrConcatChild{2}{\ZExpStrConcatII{\HExpVar_1}{\HExpVar_2}} \\
+  %
+  \newcommand{\AcExpMovStrConcatParent}[2]{
+    \judgment{
+    }{
+      \AcExpMovParent{#2}{\ZExpStrConcat{\HExpVar_1}{\HExpVar_2}}
+    }{AEMStrConcatParent#1}
+  }
+  %
+  \AcExpMovStrConcatParent{1}{\ZExpStrConcatI{\HExpVar_1}{\HExpVar_2}} \\
+  \AcExpMovStrConcatParent{2}{\ZExpStrConcatII{\HExpVar_1}{\HExpVar_2}} \\
+  %
+  %
   \newcommand{\AcExpMovStrSubChild}[2]{
     \judgment{
     }{
