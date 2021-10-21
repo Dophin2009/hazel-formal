@@ -8,11 +8,18 @@
 \newcommand{\HStrEscVar}{\ensuremath{e}}
 \newcommand{\HStrEscSeqVar}{\ensuremath{s}}
 \newcommand{\HStrEscSpecVar}{\ensuremath{\underline{r}}}
+
 \newcommand{\HStrEscDec}[3]{#1~#2~#3}
 \newcommand{\HStrEscDecX}{\ensuremath{\HStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
 \newcommand{\HStrEscDecVar}{\ensuremath{d}}
 \newcommand{\HStrEscDecDigVar}{\ensuremath{\underline{n}}}
 \newcommand{\HStrEscDecDigVarN}[1]{\ensuremath{\underline{n_{#1}}}}
+
+\newcommand{\HStrEscOct}[3]{\texttt{o}~#1~#2~#3}
+\newcommand{\HStrEscOctX}{\ensuremath{\HStrEscOct{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+\newcommand{\HStrEscOctVar}{\ensuremath{o}}
+\newcommand{\HStrEscOctDigVar}{\ensuremath{\underline{b}}}
+\newcommand{\HStrEscOctDigVarN}[1]{\ensuremath{\underline{b_{#1}}}}
 
 % Z-Exp
 \newcommand{\ZStrList}[2]{\ensuremath{\ZExpCursor{\HStrList{#1}{#2}}}}
@@ -21,6 +28,7 @@
 \newcommand{\ZStrAtom}{\ensuremath{\ZExpCursor{\HStrAtomVar}}}
 \newcommand{\ZStrEsc}[1]{\ensuremath{\ZExpCursor{\HStrEsc{#1}}}}
 \newcommand{\ZStrEscI}[1]{\ensuremath{{\HStrEsc{\ZExpCursor{#1}}}}}
+
 \newcommand{\ZStrEscDec}[3]{\ensuremath{\ZExpCursor{\HStrEscDec{#1}{#2}{#3}}}}
 \newcommand{\ZStrEscDecI}[3]{\ensuremath{\HStrEscDec{\ZExpCursor{#1}}{#2}{#3}}}
 \newcommand{\ZStrEscDecII}[3]{\ensuremath{\HStrEscDec{#1}{\ZExpCursor{#2}}{#3}}}
@@ -29,6 +37,15 @@
 \newcommand{\ZStrEscDecXI}{\ensuremath{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
 \newcommand{\ZStrEscDecXII}{\ensuremath{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
 \newcommand{\ZStrEscDecXIII}{\ensuremath{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+
+\newcommand{\ZStrEscOct}[3]{\ensuremath{\ZExpCursor{\HStrEscOct{#1}{#2}{#3}}}}
+\newcommand{\ZStrEscOctI}[3]{\ensuremath{\HStrEscOct{\ZExpCursor{#1}}{#2}{#3}}}
+\newcommand{\ZStrEscOctII}[3]{\ensuremath{\HStrEscOct{#1}{\ZExpCursor{#2}}{#3}}}
+\newcommand{\ZStrEscOctIII}[3]{\ensuremath{\HStrEscOct{#1}{#2}{\ZExpCursor{#3}}}}
+\newcommand{\ZStrEscOctX}{\ensuremath{\ZStrEscOct{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+\newcommand{\ZStrEscOctXI}{\ensuremath{\ZStrEscOctI{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+\newcommand{\ZStrEscOctXII}{\ensuremath{\ZStrEscOctII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+\newcommand{\ZStrEscOctXIII}{\ensuremath{\ZStrEscOctIII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
 
 % Actions
 \newcommand{\AcConStrListUnesc}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
@@ -40,3 +57,6 @@
 
 \newcommand{\AcConStrEscDec}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
 \newcommand{\AcDelStrEscDec}[2]{\ensuremath{\AcDel{#1}{#2}}}
+
+\newcommand{\AcConStrEscOct}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
+\newcommand{\AcDelStrEscOct}[2]{\ensuremath{\AcDel{#1}{#2}}}

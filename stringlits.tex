@@ -32,15 +32,17 @@ This is an attempt to define a set of action and evaluation semantics for string
                 &                 & \mid         & \texttt{'}                                     \\
                 &                 & \mid         & \texttt{"}                                     \\
                 &                 & \mid         & \texttt{\textbackslash}                        \\
-                &                 & \mid         & \texttt{\underline{\ }}~~\text{(space)}               \\ 
+                &                 & \mid         & \texttt{ }~~\text{(space)}               \\ 
     \texttt{HStrEscDec}  & \HStrEscDecVar  & \mid         & \HStrEscDecX                          \\
+    \texttt{HStrEscOct}  & \HStrEscOctVar  & \mid         & \HStrEscOctX                          \\
   \end{array}\]
 \end{center}
 %
 The angle brackets ($\langle$ and $\rangle$) in \texttt{HStrList} are not part of the concrete
 syntax; they are shown to indicate the structure of the character sequence list. $\epsilon$ denotes
 nothing\textemdash{the} nil variant of a cons list. Additionally, $\HStrEscDecDigVar$ denotes any
-digit from \texttt{0} to \texttt{9}.
+digit from \texttt{0} to \texttt{9}; $\HStrEscOctDigVar$ denotes any digit from \texttt{0} to
+\texttt{7}.
 % }}}
 % {{{ Action Model
 \subsection{Action Model}
@@ -122,6 +124,41 @@ digit from \texttt{0} to \texttt{9}.
   }{AMStrEscDecParent3} \\
 \end{mathpar}
 % }}}
+% {{{ Octal Escape
+\subsubsubsection{\textbf{\textit{Octal Escape}}}
+%
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcExpMovChild{1}{\HStrEsc{\ZStrEscOctX}}{\HStrEsc{\ZStrEscOctXI}}
+  }{AMStrEscOctChild1} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{2}{\HStrEsc{\ZStrEscOctX}}{\HStrEsc{\ZStrEscOctXII}}
+  }{AMStrEscOctChild2} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{3}{\HStrEsc{\ZStrEscOctX}}{\HStrEsc{\ZStrEscOctXIII}}
+  }{AMStrEscOctChild3} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{1}{\HStrEsc{\ZStrEscOctXI}}{\HStrEsc{\ZStrEscOctX}}
+  }{AMStrEscOctParent1} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{2}{\HStrEsc{\ZStrEscOctXII}}{\HStrEsc{\ZStrEscOctX}}
+  }{AMStrEscOctParent2} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{3}{\HStrEsc{\ZStrEscOctXIII}}{\HStrEsc{\ZStrEscOctX}}
+  }{AMStrEscOctParent3} \\
+\end{mathpar}
+% }}}
 % }}}
 % }}}
 % {{{ Construction
@@ -157,7 +194,11 @@ digit from \texttt{0} to \texttt{9}.
     \AcConStrEscDec{\HStrEscDecDigVar}{\HStrEsc{\ZExpCursorEHole}}
                    {\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVar}{\ZExpEHole}{\ZExpEHole}}}
   }{AConStrEscDec} \\
-  %
+\end{mathpar}
+% }}}
+% {{{ Decimal Escape
+\subsubsubsection{Decimal Escape}
+\begin{mathpar}
   \judgment{
   }{
     \AcConStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEsc{\ZStrEscDecI{\ZExpEHole}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
@@ -176,6 +217,29 @@ digit from \texttt{0} to \texttt{9}.
                    {\HStrEsc{\ZStrEscDecXIII}}
   }{AConStrEscDecDig3} \\
 \end{mathpar}
+% }}}
+% {{{ Octal Escape
+\subsubsubsection{Octal Escape}
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcConStrEscOct{\HStrEscOctDigVarN{1}}{\HStrEsc{\ZStrEscOctI{\ZExpEHole}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscOctXI}}
+  }{AConStrEscOctDig1} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscOct{\HStrEscOctDigVarN{2}}{\HStrEsc{\ZStrEscOctII{\HStrEscOctDigVarN{1}}{\ZExpEHole}{\HStrEscOctDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscOctXII}}
+  }{AConStrEscOctDig2} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscOct{\HStrEscOctDigVarN{3}}{\HStrEsc{\ZStrEscOctIII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{3}}{\ZExpEHole}}}
+                   {\HStrEsc{\ZStrEscOctXIII}}
+  }{AConStrEscOctDig3} \\
+\end{mathpar}
+% }}}
 % }}}
 % }}}
 % {{{ Deletion
@@ -202,6 +266,5 @@ digit from \texttt{0} to \texttt{9}.
 \end{mathpar}
 % }}}
 % }}}
-
 \end{document}
 % }}}
