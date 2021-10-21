@@ -35,9 +35,9 @@ This is an attempt to define a set of action and evaluation semantics for string
                 &                 & \mid         & \texttt{"}                                     \\
                 &                 & \mid         & \texttt{\textbackslash}                        \\
                 &                 & \mid         & \texttt{ }~~\text{(space)}                            \\ 
-    \texttt{HStrEscDec}  & \HStrEscDecVar  & \mid         & \HStrEscDecX                          \\
-    \texttt{HStrEscOct}  & \HStrEscOctVar  & \mid         & \HStrEscOctX                          \\
-    \texttt{HStrEscHex}  & \HStrEscHexVar  & \mid         & \HStrEscHexX                          \\
+    \texttt{HStrEscDec}  & \HStrEscDecVar  & \Coloneqq & \HStrEscDecX                          \\
+    \texttt{HStrEscOct}  & \HStrEscOctVar  & \Coloneqq & \HStrEscOctX                          \\
+    \texttt{HStrEscHex}  & \HStrEscHexVar  & \Coloneqq & \HStrEscHexX                          \\
   \end{array}\]
 \end{center}
 %
@@ -225,6 +225,18 @@ $\HStrEscDecDigVar$ denotes any digit from \texttt{0} to \texttt{9}; $\HStrEscOc
     \AcConStrEscDec{\HStrEscDecDigVar}{\HStrEsc{\ZExpCursorEHole}}
                    {\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVar}{\ZExpEHole}{\ZExpEHole}}}
   }{AConStrEscDec} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscOct{\HStrEscOctDigVar}{\HStrEsc{\ZExpCursorEHole}}
+                   {\HStrEsc{\ZStrEscOctI{\HStrEscOctDigVar}{\ZExpEHole}{\ZExpEHole}}}
+  }{AConStrEscOct} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscHex{\HStrEscHexDigVar}{\HStrEsc{\ZExpCursorEHole}}
+                   {\HStrEsc{\ZStrEscHexI{\HStrEscHexDigVar}{\ZExpEHole}{\ZExpEHole}}}
+  }{AConStrEscHex} \\
 \end{mathpar}
 % }}}
 % {{{ Decimal Escape
