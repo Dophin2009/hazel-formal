@@ -4,6 +4,8 @@
 \input{prelude/prelude.tex}
 \input{prelude/symbols.tex}
 \input{prelude/stringlits.tex}
+
+\allowdisplaybreaks{}
 % }}}
 % {{{ Document
 \begin{document}
@@ -32,18 +34,21 @@ This is an attempt to define a set of action and evaluation semantics for string
                 &                 & \mid         & \texttt{'}                                     \\
                 &                 & \mid         & \texttt{"}                                     \\
                 &                 & \mid         & \texttt{\textbackslash}                        \\
-                &                 & \mid         & \texttt{ }~~\text{(space)}               \\ 
+                &                 & \mid         & \texttt{ }~~\text{(space)}                            \\ 
     \texttt{HStrEscDec}  & \HStrEscDecVar  & \mid         & \HStrEscDecX                          \\
     \texttt{HStrEscOct}  & \HStrEscOctVar  & \mid         & \HStrEscOctX                          \\
     \texttt{HStrEscHex}  & \HStrEscHexVar  & \mid         & \HStrEscHexX                          \\
   \end{array}\]
 \end{center}
 %
-The angle brackets ($\langle$ and $\rangle$) in \texttt{HStrList} are not part of the concrete
-syntax; they are shown to indicate the structure of the character sequence list. $\epsilon$ denotes
-nothing\textemdash{the} nil variant of a cons list. Additionally, $\HStrEscDecDigVar$ denotes any
-digit from \texttt{0} to \texttt{9}; $\HStrEscOctDigVar$, from \texttt{0} to \texttt{7};
-$\HStrEscHexDigVar$, from \texttt{0} to \texttt{9} or \texttt{A} to \texttt{F}.
+The syntax supports the same escape sequences as those in OCaml.
+%
+It must be noted that the angle brackets ($\langle$ and $\rangle$) in \texttt{HStrList} are not part
+of the concrete syntax; they are shown to indicate the structure of the character sequence list.
+$\epsilon$ denotes nothing\textemdash{the} nil variant of a cons list. Additionally,
+$\HStrEscDecDigVar$ denotes any digit from \texttt{0} to \texttt{9}; $\HStrEscOctDigVar$, from
+\texttt{0} to \texttt{7}; $\HStrEscHexDigVar$, from \texttt{0} to \texttt{9} or \texttt{A} to
+\texttt{F}.
 % }}}
 % {{{ Action Model
 \subsection{Action Model}
