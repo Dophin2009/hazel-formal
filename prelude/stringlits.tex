@@ -21,6 +21,12 @@
 \newcommand{\HStrEscOctDigVar}{\ensuremath{\underline{b}}}
 \newcommand{\HStrEscOctDigVarN}[1]{\ensuremath{\underline{b_{#1}}}}
 
+\newcommand{\HStrEscHex}[2]{\texttt{x}~#1~#2}
+\newcommand{\HStrEscHexX}{\ensuremath{\HStrEscHex{\HStrEscHexDigVarN{1}}{\HStrEscHexDigVarN{2}}}}
+\newcommand{\HStrEscHexVar}{\ensuremath{x}}
+\newcommand{\HStrEscHexDigVar}{\ensuremath{\underline{h}}}
+\newcommand{\HStrEscHexDigVarN}[1]{\ensuremath{\underline{h_{#1}}}}
+
 % Z-Exp
 \newcommand{\ZStrList}[2]{\ensuremath{\ZExpCursor{\HStrList{#1}{#2}}}}
 \newcommand{\ZStrListI}[2]{\ensuremath{\HStrList{\ZExpCursor{#1}}{#2}}}
@@ -47,6 +53,13 @@
 \newcommand{\ZStrEscOctXII}{\ensuremath{\ZStrEscOctII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
 \newcommand{\ZStrEscOctXIII}{\ensuremath{\ZStrEscOctIII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
 
+\newcommand{\ZStrEscHex}[2]{\ensuremath{\ZExpCursor{\HStrEscHex{#1}{#2}}}}
+\newcommand{\ZStrEscHexI}[2]{\ensuremath{\HStrEscHex{\ZExpCursor{#1}}{#2}}}
+\newcommand{\ZStrEscHexII}[2]{\ensuremath{\HStrEscHex{#1}{\ZExpCursor{#2}}}}
+\newcommand{\ZStrEscHexX}{\ensuremath{\ZStrEscHex{\HStrEscHexDigVarN{1}}{\HStrEscHexDigVarN{2}}}}
+\newcommand{\ZStrEscHexXI}{\ensuremath{\ZStrEscHexI{\HStrEscHexDigVarN{1}}{\HStrEscHexDigVarN{2}}}}
+\newcommand{\ZStrEscHexXII}{\ensuremath{\ZStrEscHexII{\HStrEscHexDigVarN{1}}{\HStrEscHexDigVarN{2}}}}
+
 % Actions
 \newcommand{\AcConStrListUnesc}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
 \newcommand{\AcConStrListEsc}[3]{\ensuremath{\AcCon{cons \HStrEsc{$#1$}}{#2}{#3}}}
@@ -55,8 +68,11 @@
 \newcommand{\AcConStrEscSpec}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
 \newcommand{\AcDelStrEscSpec}[2]{\ensuremath{\AcDel{#1}{#2}}}
 
-\newcommand{\AcConStrEscDec}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
+\newcommand{\AcConStrEscDec}[3]{\ensuremath{\AcCon{escape dec $#1$}{#2}{#3}}}
 \newcommand{\AcDelStrEscDec}[2]{\ensuremath{\AcDel{#1}{#2}}}
 
-\newcommand{\AcConStrEscOct}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
+\newcommand{\AcConStrEscOct}[3]{\ensuremath{\AcCon{escape oct $#1$}{#2}{#3}}}
 \newcommand{\AcDelStrEscOct}[2]{\ensuremath{\AcDel{#1}{#2}}}
+
+\newcommand{\AcConStrEscHex}[3]{\ensuremath{\AcCon{escape hex $#1$}{#2}{#3}}}
+\newcommand{\AcDelStrEscHex}[2]{\ensuremath{\AcDel{#1}{#2}}}
