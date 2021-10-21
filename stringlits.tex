@@ -85,47 +85,49 @@ digit from \texttt{0} to \texttt{9}.
   }{
     \AcExpMovParent{\ZStrEscI{\HStrEscSeqVar}}{\ZStrEsc{\HStrEscSeqVar}}
   }{AMStrEscParent} \\
-  %
+\end{mathpar}
+% }}}
+% {{{ Decimal Escape
+\subsubsubsection{\textbf{\textit{Decimal Escape}}}
+%
+\begin{mathpar}
   \judgment{
   }{
-    \AcExpMovChild{1}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                  {\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{1}{\HStrEsc{\ZStrEscDecX}}{\HStrEsc{\ZStrEscDecXI}}
   }{AMStrEscDecChild1} \\
   %
   \judgment{
   }{
-    \AcExpMovChild{2}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                  {\HStrEsc{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{2}{\HStrEsc{\ZStrEscDecX}}{\HStrEsc{\ZStrEscDecXII}}
   }{AMStrEscDecChild2} \\
   %
   \judgment{
   }{
-    \AcExpMovChild{3}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                  {\HStrEsc{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{3}{\HStrEsc{\ZStrEscDecX}}{\HStrEsc{\ZStrEscDecXIII}}
   }{AMStrEscDecChild3} \\
   %
   \judgment{
   }{
-  \AcExpMovChild{1}{\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{1}{\HStrEsc{\ZStrEscDecXI}}{\HStrEsc{\ZStrEscDecX}}
   }{AMStrEscDecParent1} \\
   %
   \judgment{
   }{
-  \AcExpMovChild{2}{\HStrEsc{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{2}{\HStrEsc{\ZStrEscDecXII}}{\HStrEsc{\ZStrEscDecX}}
   }{AMStrEscDecParent2} \\
   %
   \judgment{
   }{
-  \AcExpMovChild{3}{\HStrEsc{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
-                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+    \AcExpMovChild{3}{\HStrEsc{\ZStrEscDecXIII}}{\HStrEsc{\ZStrEscDecX}}
   }{AMStrEscDecParent3} \\
 \end{mathpar}
 % }}}
 % }}}
+% }}}
 % {{{ Construction
 \subsubsection{Construction}
+% {{{ List
+\subsubsubsection{List}
 %
 \begin{mathpar}
   \judgment{
@@ -139,13 +141,42 @@ digit from \texttt{0} to \texttt{9}.
     \AcConStrListEsc{}{\ZStrListI{\HStrAtomVar}{\HStrListVar}}
                       {\HStrList{\HStrAtomVar}{\HStrList{\HStrEsc{\ZExpCursorEHole}}{\HStrListVar}}}
   }{AConStrListEsc} \\
-  %
+\end{mathpar}
+% }}}
+% {{{ Escapes
+\subsubsubsection{Escape}
+\begin{mathpar}
   \judgment{
   }{
     \AcConStrEscSpec{\HStrEscSpecVar}{\HStrEsc{\ZExpCursorEHole}}
                     {\HStrEsc{\ZExpCursor{\HStrEscSpecVar}}}
   }{AConStrEscSpec} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscDec{\HStrEscDecDigVar}{\HStrEsc{\ZExpCursorEHole}}
+                   {\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVar}{\ZExpEHole}{\ZExpEHole}}}
+  }{AConStrEscDec} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEsc{\ZStrEscDecI{\ZExpEHole}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscDecXI}}
+  }{AConStrEscDecDig1} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscDec{\HStrEscDecDigVarN{2}}{\HStrEsc{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\ZExpEHole}{\HStrEscDecDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscDecXII}}
+  }{AConStrEscDecDig2} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscDec{\HStrEscDecDigVarN{3}}{\HStrEsc{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{3}}{\ZExpEHole}}}
+                   {\HStrEsc{\ZStrEscDecXIII}}
+  }{AConStrEscDecDig3} \\
 \end{mathpar}
+% }}}
 % }}}
 % {{{ Deletion
 \subsubsection{Deletion}
@@ -161,6 +192,12 @@ digit from \texttt{0} to \texttt{9}.
   }{
     \AcDelStrList{\HStrEsc{\ZExpCursor{\HStrEscSeqVar}}}
                  {\HStrEsc{\ZExpCursorEHole}}
+  }{ADelStrEsc} \\
+  %
+  \judgment{
+  }{
+  \AcDelStrList{\ZExpCursor{\HStrEscDecDigVar}}
+               {\ZExpCursorEHole}
   }{ADelStrEsc} \\
 \end{mathpar}
 % }}}

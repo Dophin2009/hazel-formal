@@ -25,11 +25,18 @@
 \newcommand{\ZStrEscDecI}[3]{\ensuremath{\HStrEscDec{\ZExpCursor{#1}}{#2}{#3}}}
 \newcommand{\ZStrEscDecII}[3]{\ensuremath{\HStrEscDec{#1}{\ZExpCursor{#2}}{#3}}}
 \newcommand{\ZStrEscDecIII}[3]{\ensuremath{\HStrEscDec{#1}{#2}{\ZExpCursor{#3}}}}
+\newcommand{\ZStrEscDecX}{\ensuremath{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+\newcommand{\ZStrEscDecXI}{\ensuremath{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+\newcommand{\ZStrEscDecXII}{\ensuremath{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+\newcommand{\ZStrEscDecXIII}{\ensuremath{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
 
 % Actions
 \newcommand{\AcConStrListUnesc}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
 \newcommand{\AcConStrListEsc}[3]{\ensuremath{\AcCon{cons \HStrEsc{$#1$}}{#2}{#3}}}
 \newcommand{\AcDelStrList}[2]{\ensuremath{\AcDel{#1}{#2}}}
 
-\newcommand{\AcConStrEscSpec}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
+\newcommand{\AcConStrEscSpec}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
 \newcommand{\AcDelStrEscSpec}[2]{\ensuremath{\AcDel{#1}{#2}}}
+
+\newcommand{\AcConStrEscDec}[3]{\ensuremath{\AcCon{escape $#1$}{#2}{#3}}}
+\newcommand{\AcDelStrEscDec}[2]{\ensuremath{\AcDel{#1}{#2}}}
