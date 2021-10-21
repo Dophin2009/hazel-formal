@@ -1,0 +1,26 @@
+% Syntax
+\newcommand{\HStrList}[2]{\ensuremath{\langle #1~#2 \rangle}}
+\newcommand{\HStrListE}{\ensuremath{\epsilon}}
+\newcommand{\HStrListVar}{\ensuremath{t}}
+\newcommand{\HStrAtomVar}{\ensuremath{c}}
+\newcommand{\HStrUnescVar}{\ensuremath{\underline{u}}}
+\newcommand{\HStrEsc}[1]{\ensuremath{\texttt{\textbackslash}#1}}
+\newcommand{\HStrEscVar}{\ensuremath{e}}
+\newcommand{\HStrEscSeqVar}{\ensuremath{s}}
+\newcommand{\HStrEscSpecVar}{\ensuremath{\underline{r}}}
+
+% Z-Exp
+\newcommand{\ZStrList}[2]{\ensuremath{\ZExpCursor{\HStrList{#1}{#2}}}}
+\newcommand{\ZStrListI}[2]{\ensuremath{\HStrList{\ZExpCursor{#1}}{#2}}}
+\newcommand{\ZStrListII}[2]{\ensuremath{\HStrList{#1}{\ZExpCursor{#2}}}}
+\newcommand{\ZStrAtom}{\ensuremath{\ZExpCursor{\HStrAtomVar}}}
+\newcommand{\ZStrEsc}[1]{\ensuremath{\ZExpCursor{\HStrEsc{#1}}}}
+\newcommand{\ZStrEscI}[1]{\ensuremath{{\HStrEsc{\ZExpCursor{#1}}}}}
+
+% Actions
+\newcommand{\AcConStrListUnesc}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
+\newcommand{\AcConStrListEsc}[3]{\ensuremath{\AcCon{cons \HStrEsc{$#1$}}{#2}{#3}}}
+\newcommand{\AcDelStrList}[2]{\ensuremath{\AcDel{#1}{#2}}}
+
+\newcommand{\AcConStrEscSpec}[3]{\ensuremath{\AcCon{cons $#1$}{#2}{#3}}}
+\newcommand{\AcDelStrEscSpec}[2]{\ensuremath{\AcDel{#1}{#2}}}

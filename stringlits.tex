@@ -1,0 +1,130 @@
+% {{{ Prelude
+\documentclass[12pt]{article}
+
+\input{prelude/prelude.tex}
+\input{prelude/symbols.tex}
+\input{prelude/stringlits.tex}
+% }}}
+% {{{ Document
+\begin{document}
+
+\section{String Literals}
+This is an attempt to define a set of action and evaluation semantics for string literals. \\
+
+% {{{ Syntax
+\noindent We define the syntax of string literals as follows:
+%
+\begin{center}
+  \vspace*{-1.5em}
+  \[\begin{array}{rccl}
+    \texttt{HStrList}    & \HStrListVar    & \Coloneqq & \HStrList{\HStrAtomVar}{\HStrListVar} \\
+                &                 & \mid         & \HStrListE                            \\
+    \texttt{HStrAtom}    & \HStrAtomVar    & \Coloneqq & \HStrUnescVar                         \\
+                &                 & \mid         & \HStrEscVar                           \\
+    \texttt{HStrUnesc}   & \HStrUnescVar   & \Coloneqq & \cdots                                     \\
+    \texttt{HStrEsc}     & \HStrEscVar     & \Coloneqq & \HStrEsc{\HStrEscSeqVar}              \\
+    \texttt{HStrEscSeq}  & \HStrEscSeqVar  & \Coloneqq & \HStrEscSpecVar                       \\
+    \texttt{HStrEscSpec} & \HStrEscSpecVar & \Coloneqq & \texttt{n}                                     \\
+                &                 & \mid         & \texttt{t}                                     \\
+                &                 & \mid         & \texttt{r}                                     \\
+                &                 & \mid         & \texttt{'}                                     \\
+                &                 & \mid         & \texttt{"}                                     \\
+                &                 & \mid         & \texttt{\textbackslash}                        \\
+                &                 & \mid         & \texttt{\underline{\ }}                        \\
+  \end{array}\]
+\end{center}
+%
+The angle brackets ($\langle$ and $\rangle$) in \texttt{HStrList} are not part of the concrete
+syntax; they are shown to indicate the structure of the character sequence list. $\epsilon$ denotes
+nothing\textemdash{the} nil variant of a cons list.
+% }}}
+% {{{ Action Model
+\subsection{Action Model}
+% {{{ Movement
+\subsubsection{Movement}
+% {{{ List
+\subsubsubsection{\textbf{\textit{List}}}
+%
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcExpMovChild{1}{\ZStrList{\HStrAtomVar}{\HStrListVar}}{\ZStrListI{\HStrAtomVar}{\HStrListVar}}
+  }{AMStrListChild1} \\
+  %
+  \judgment{
+    \HStrListVar \neq \HStrListE
+  }{
+    \AcExpMovChild{2}{\ZStrList{\HStrAtomVar}{\HStrListVar}}{\ZStrListII{\HStrAtomVar}{\HStrListVar}}
+  }{AMStrListChild2} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovParent{\ZStrListI{\HStrAtomVar}{\HStrListVar}}{\ZStrList{\HStrAtomVar}{\HStrListVar}}
+  }{AMStrListParent1} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovParent{\ZStrListII{\HStrAtomVar}{\HStrListVar}}{\ZStrList{\HStrAtomVar}{\HStrListVar}}
+  }{AMStrListParent2} \\
+\end{mathpar}
+% }}}
+% {{{ Escape
+\subsubsubsection{\textbf{\textit{Escape}}}
+%
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcExpMovChild{1}{\ZStrEsc{\HStrEscSpecVar}}{\ZStrEscI{\HStrEscSpecVar}}
+  }{AMStrEscChild} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovParent{\ZStrEscI{\HStrEscSpecVar}}{\ZStrEsc{\HStrEscSpecVar}}
+  }{AMStrEscParent} \\
+\end{mathpar}
+% }}}
+% }}}
+% {{{ Construction
+\subsubsection{Construction}
+%
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcConStrListUnesc{\HStrUnescVar}{\ZStrListI{\HStrAtomVar}{\HStrListVar}}
+                      {\HStrList{\HStrAtomVar}{\ZStrListI{\HStrUnescVar}{\HStrListVar}}}
+  }{AConStrListUnesc} \\
+  %
+  \judgment{
+  }{
+    \AcConStrListEsc{}{\ZStrListI{\HStrAtomVar}{\HStrListVar}}
+                      {\HStrList{\HStrAtomVar}{\HStrList{\HStrEsc{\ZExpCursorEHole}}{\HStrListVar}}}
+  }{AConStrListEsc} \\
+  %
+  \judgment{
+  }{
+    \AcConStrEscSpec{\HStrEscSpecVar}{\HStrEsc{\ZExpCursorEHole}}
+                    {\HStrEsc{\ZExpCursor{\HStrEscSpecVar}}}
+  }{AConStrEscSpec} \\
+\end{mathpar}
+% }}}
+% {{{ Deletion
+\subsubsection{Deletion}
+%
+\begin{mathpar}
+  \judgment{
+  }{
+    \AcDelStrList{\ZStrListI{\HStrAtomVar}{\HStrListVar}}
+                 {\HStrListVar}
+  }{ADelStrList} \\
+  %
+  \judgment{
+  }{
+    \AcDelStrList{\HStrEsc{\ZExpCursor{\HStrEscSeqVar}}}
+                 {\HStrEsc{\ZExpCursorEHole}}
+  }{ADelStrEsc} \\
+\end{mathpar}
+% }}}
+% }}}
+
+\end{document}
+% }}}
