@@ -24,19 +24,23 @@ This is an attempt to define a set of action and evaluation semantics for string
     \texttt{HStrUnesc}   & \HStrUnescVar   & \Coloneqq & \cdots                                     \\
     \texttt{HStrEsc}     & \HStrEscVar     & \Coloneqq & \HStrEsc{\HStrEscSeqVar}              \\
     \texttt{HStrEscSeq}  & \HStrEscSeqVar  & \Coloneqq & \HStrEscSpecVar                       \\
+                &                 & \mid         & \HStrEscDecVar                        \\
     \texttt{HStrEscSpec} & \HStrEscSpecVar & \Coloneqq & \texttt{n}                                     \\
                 &                 & \mid         & \texttt{t}                                     \\
                 &                 & \mid         & \texttt{r}                                     \\
+                &                 & \mid         & \texttt{b}                                     \\
                 &                 & \mid         & \texttt{'}                                     \\
                 &                 & \mid         & \texttt{"}                                     \\
                 &                 & \mid         & \texttt{\textbackslash}                        \\
-                &                 & \mid         & \texttt{\underline{\ }}                        \\
+                &                 & \mid         & \texttt{\underline{\ }}~~\text{(space)}               \\ 
+    \texttt{HStrEscDec}  & \HStrEscDecVar  & \mid         & \HStrEscDecX                          \\
   \end{array}\]
 \end{center}
 %
 The angle brackets ($\langle$ and $\rangle$) in \texttt{HStrList} are not part of the concrete
 syntax; they are shown to indicate the structure of the character sequence list. $\epsilon$ denotes
-nothing\textemdash{the} nil variant of a cons list.
+nothing\textemdash{the} nil variant of a cons list. Additionally, $\HStrEscDecDigVar$ denotes any
+digit from \texttt{0} to \texttt{9}.
 % }}}
 % {{{ Action Model
 \subsection{Action Model}
@@ -74,13 +78,49 @@ nothing\textemdash{the} nil variant of a cons list.
 \begin{mathpar}
   \judgment{
   }{
-    \AcExpMovChild{1}{\ZStrEsc{\HStrEscSpecVar}}{\ZStrEscI{\HStrEscSpecVar}}
+    \AcExpMovChild{1}{\ZStrEsc{\HStrEscSeqVar}}{\ZStrEscI{\HStrEscSeqVar}}
   }{AMStrEscChild} \\
   %
   \judgment{
   }{
-    \AcExpMovParent{\ZStrEscI{\HStrEscSpecVar}}{\ZStrEsc{\HStrEscSpecVar}}
+    \AcExpMovParent{\ZStrEscI{\HStrEscSeqVar}}{\ZStrEsc{\HStrEscSeqVar}}
   }{AMStrEscParent} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{1}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                  {\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecChild1} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{2}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                  {\HStrEsc{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecChild2} \\
+  %
+  \judgment{
+  }{
+    \AcExpMovChild{3}{\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                  {\HStrEsc{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecChild3} \\
+  %
+  \judgment{
+  }{
+  \AcExpMovChild{1}{\HStrEsc{\ZStrEscDecI{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecParent1} \\
+  %
+  \judgment{
+  }{
+  \AcExpMovChild{2}{\HStrEsc{\ZStrEscDecII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecParent2} \\
+  %
+  \judgment{
+  }{
+  \AcExpMovChild{3}{\HStrEsc{\ZStrEscDecIII{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+                   {\HStrEsc{\ZStrEscDec{\HStrEscDecDigVarN{1}}{\HStrEscDecDigVarN{2}}{\HStrEscDecDigVarN{3}}}}
+  }{AMStrEscDecParent3} \\
 \end{mathpar}
 % }}}
 % }}}
