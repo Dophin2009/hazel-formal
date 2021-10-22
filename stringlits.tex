@@ -266,19 +266,19 @@ $\HStrEscDecDigVar$ denotes any digit from \texttt{0} to \texttt{9}; $\HStrEscOc
 \begin{mathpar}
   \judgment{
   }{
-    \AcConStrEscOct{\HStrEscOctDigVarN{1}}{\HStrEsc{\ZStrEscOctI{\ZExpEHole}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
+    \AcConStrEscOctDig{\HStrEscOctDigVarN{1}}{\HStrEsc{\ZStrEscOctI{\ZExpEHole}{\HStrEscOctDigVarN{2}}{\HStrEscOctDigVarN{3}}}}
                    {\HStrEsc{\ZStrEscOctXI}}
   }{AConStrEscOctDig1} \\
   %
   \judgment{
   }{
-    \AcConStrEscOct{\HStrEscOctDigVarN{2}}{\HStrEsc{\ZStrEscOctII{\HStrEscOctDigVarN{1}}{\ZExpEHole}{\HStrEscOctDigVarN{3}}}}
+    \AcConStrEscOctDig{\HStrEscOctDigVarN{2}}{\HStrEsc{\ZStrEscOctII{\HStrEscOctDigVarN{1}}{\ZExpEHole}{\HStrEscOctDigVarN{3}}}}
                    {\HStrEsc{\ZStrEscOctXII}}
   }{AConStrEscOctDig2} \\
   %
   \judgment{
   }{
-    \AcConStrEscOct{\HStrEscOctDigVarN{3}}{\HStrEsc{\ZStrEscOctIII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{3}}{\ZExpEHole}}}
+    \AcConStrEscOctDig{\HStrEscOctDigVarN{3}}{\HStrEsc{\ZStrEscOctIII{\HStrEscOctDigVarN{1}}{\HStrEscOctDigVarN{3}}{\ZExpEHole}}}
                    {\HStrEsc{\ZStrEscOctXIII}}
   }{AConStrEscOctDig3} \\
 \end{mathpar}
@@ -288,13 +288,13 @@ $\HStrEscDecDigVar$ denotes any digit from \texttt{0} to \texttt{9}; $\HStrEscOc
 \begin{mathpar}
   \judgment{
   }{
-    \AcConStrEscHex{\HStrEscHexDigVarN{1}}{\HStrEsc{\ZStrEscHexI{\ZExpEHole}{\HStrEscHexDigVarN{2}}}}
+    \AcConStrEscHexDig{\HStrEscHexDigVarN{1}}{\HStrEsc{\ZStrEscHexI{\ZExpEHole}{\HStrEscHexDigVarN{2}}}}
                    {\HStrEsc{\ZStrEscHexXI}}
   }{AConStrEscHexDig1} \\
   %
   \judgment{
   }{
-    \AcConStrEscHex{\HStrEscHexDigVarN{2}}{\HStrEsc{\ZStrEscHexII{\HStrEscHexDigVarN{1}}{\ZExpEHole}}}
+    \AcConStrEscHexDig{\HStrEscHexDigVarN{2}}{\HStrEsc{\ZStrEscHexII{\HStrEscHexDigVarN{1}}{\ZExpEHole}}}
                    {\HStrEsc{\ZStrEscHexXII}}
   }{AConStrEscHexDig2} \\
 \end{mathpar}
