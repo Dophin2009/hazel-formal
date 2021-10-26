@@ -26,6 +26,7 @@ We extend the syntax as follows, assuming $s$ is a sequence of characters:
                                                \mid   \IHExpStrLit 
                                                \mid   \IHExpStrSub{\IHExpVar}{\IHExpVar}{\IHExpVar} \\
     \IHExcept & \IHExceptVar & \Coloneqq &   &   & \IHExceptOOB{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}}{\IHExpNumLitVS{3}}
+                                               \mid   \IHExceptIE{\IHExpNumLitVS{1}}{\IHExpNumLitVS{2}} \\
   \end{array}\]
 \end{center}
 %
@@ -220,9 +221,16 @@ acceptable values, inclusive.
 %
 \begin{mathpar}
   \judgment{
+    (\IHExpStrLit,~\texttt{None}) = \texttt{lex}~\HExpStrLit \\
   }{
     \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypStr}}{\IHExpCtx{\IHExpStrLit}{\IHExpHoleCtxE}}
-  }{ELStrLit} \\
+  }{ELStrLitSucc} \\
+
+  \judgment{
+    (\IHExpStrLit,~\texttt{Some}~\IHExceptVar) = \texttt{lex}~\HExpStrLit \\
+  }{
+  \ElabArrow{\synType{\Gamma}{\HExpStrLit}{\HTypStr}}{\IHExpCtx{\IHExpCastExcept{\IHExpStrLit}{\IHExceptVar}}{\IHExpHoleCtxE}}
+  }{ELStrLitIE} \\
 
   \judgment{
     \ElabArrow{\anaType{\HTypCtx}{\HExpVar_1}{\HTypStr}}{\IHExpCtx{\hasTypeC{\IHExpVar_1}{\HTypVar_1}}{\IHExpHoleCtx_1}} \\

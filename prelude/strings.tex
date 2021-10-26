@@ -14,6 +14,7 @@
 \newcommand{\ZExpStrSubIII}[3]{\ensuremath{\HExpStrSub{#1}{#2}{\ZExpCursor{#3}}}}
 
 \newcommand{\IHExceptOOB}[3]{\ensuremath{\texttt{OOB}\{#1, [#2, #3]\}}}
+\newcommand{\IHExceptIE}[2]{\ensuremath{\texttt{IE}\{#1, #2\}}}
 
 \newcommand{\IHExpStrLit}{\ensuremath{\texttt{"}\underline{s}\texttt{"}}}
 \newcommand{\IHExpStrLitS}[1]{\ensuremath{\texttt{"}\underline{s_#1}\texttt{"}}}
@@ -25,6 +26,7 @@
 \newcommand{\IHExpStrLen}[1]{\ensuremath{\mathsf{len}(#1)}}
 
 \newcommand{\IHExpExceptOOB}[3]{\ensuremath{\IHExpExcept{\IHExceptOOB{#1}{#2}{#3}}}}
+\newcommand{\IHExpExceptIE}[2]{\ensuremath{\IHExpExcept{\IHExceptIE{#1}{#2}}}}
 
 \newcommand{\AcConStrLit}[2]{\AcCon{lit $\HExpStrLit$}{#1}{#2}}
 \newcommand{\AcConStrConcat}[2]{\AcCon{concat}{#1}{#2}}
