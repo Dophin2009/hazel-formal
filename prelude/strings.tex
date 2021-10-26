@@ -1,0 +1,31 @@
+\newcommand{\HTypStr}{\texttt{str}}
+
+\newcommand{\HExpStrLit}{\ensuremath{\texttt{"}\underline{\overline{s}}\texttt{"}}}
+\newcommand{\HExpStrSub}[3]{\ensuremath{#1\texttt{[}#2\texttt{:}#3\texttt{]}}}
+\newcommand{\HExpStrConcatOp}{\ensuremath{\textsuperscript{$\bm{\wedge}$}}}
+\newcommand{\HExpStrConcat}[2]{\ensuremath{#1\ \HExpStrConcatOp\ #2}}
+
+\newcommand{\ZExpStrConcat}[2]{\ensuremath{\ZExpCursor{\HExpStrConcat{#1}{#2}}}}
+\newcommand{\ZExpStrConcatI}[2]{\ensuremath{\HExpStrConcat{\ZExpCursor{#1}}{#2}}}
+\newcommand{\ZExpStrConcatII}[2]{\ensuremath{\HExpStrConcat{#1}{\ZExpCursor{#2}}}}
+\newcommand{\ZExpStrSub}[3]{\ensuremath{\ZExpCursor{\HExpStrSub{#1}{#2}{#3}}}}
+\newcommand{\ZExpStrSubI}[3]{\ensuremath{\HExpStrSub{\ZExpCursor{#1}}{#2}{#3}}}
+\newcommand{\ZExpStrSubII}[3]{\ensuremath{\HExpStrSub{#1}{\ZExpCursor{#2}}{#3}}}
+\newcommand{\ZExpStrSubIII}[3]{\ensuremath{\HExpStrSub{#1}{#2}{\ZExpCursor{#3}}}}
+
+\newcommand{\IHExceptOOB}[3]{\ensuremath{\texttt{OOB}\{#1, [#2, #3]\}}}
+
+\newcommand{\IHExpStrLit}{\ensuremath{\texttt{"}\underline{s}\texttt{"}}}
+\newcommand{\IHExpStrLitS}[1]{\ensuremath{\texttt{"}\underline{s_#1}\texttt{"}}}
+\newcommand{\IHExpStrLitV}[1]{\ensuremath{\texttt{"}s\texttt{"}}}
+\newcommand{\IHExpStrLitVS}[1]{\ensuremath{\texttt{"}s_#1\texttt{"}}}
+\newcommand{\IHExpStrLitX}[1]{\ensuremath{\texttt{"}\underline{#1}\texttt{"}}}
+\newcommand{\IHExpStrConcat}[2]{\ensuremath{#1\ \HExpStrConcatOp\ #2}}
+\newcommand{\IHExpStrSub}[3]{\ensuremath{#1\texttt{[}#2\texttt{:}#3\texttt{]}}}
+\newcommand{\IHExpStrLen}[1]{\ensuremath{\mathsf{len}(#1)}}
+
+\newcommand{\IHExpExceptOOB}[3]{\ensuremath{\IHExpExcept{\IHExceptOOB{#1}{#2}{#3}}}}
+
+\newcommand{\AcConStrLit}[2]{\AcCon{lit $\HExpStrLit$}{#1}{#2}}
+\newcommand{\AcConStrConcat}[2]{\AcCon{concat}{#1}{#2}}
+\newcommand{\AcConStrSub}[2]{\AcCon{subscript}{#1}{#2}}
